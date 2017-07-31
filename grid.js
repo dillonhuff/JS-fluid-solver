@@ -31,6 +31,14 @@ function Grid(N, size, nDims, ui) {
     this.nDims = nDims;
     this.ui = ui;
 
+    this.xLength = function() {
+	return this.N[X_DIM];
+    }
+
+    this.yLength = function() {
+	return this.N[Y_DIM];
+    }
+    
     // compute the length of each cell in each axis
     this.len_cells = new Array();
     for(var i=0; i<this.size.length; i++)
@@ -38,12 +46,12 @@ function Grid(N, size, nDims, ui) {
 
     // Generates a velocity array appropriately fitted to this grid.
     this.generateVelArray = function() {
-        return zeros4d(3, this.N[X_DIM]+2, this.N[Y_DIM]+2, this.N[Z_DIM]+2);
+        return zeros4d(3, this.xLength()+2, this.N[Y_DIM]+2, this.N[Z_DIM]+2);
     }
 
     // Generates a density array appropriately fitted to this grid.
     this.generateDensArray = function() {
-        return zeros3d(this.N[X_DIM]+2, this.N[Y_DIM]+2, this.N[Z_DIM]+2);
+        return zeros3d(this.xLength()+2, this.N[Y_DIM]+2, this.N[Z_DIM]+2);
     }
     
     // allocate the velocity and density field arrays (3rd dim ignored for 2D).
@@ -56,7 +64,7 @@ function Grid(N, size, nDims, ui) {
 
     // Zeros out the given velocity and density arrays.
     this.clearArrays = function(v, d) {
-        for(var i=0; i<(this.N[X_DIM]+2); i++) {
+        for(var i=0; i<(this.xLength()+2); i++) {
             for(var j=0; j<(this.N[Y_DIM]+2); j++) {
                 for(var k=0; k<(this.N[Z_DIM]+2); k++) {
                     for(var dim=0; dim<3; dim++)
@@ -129,7 +137,7 @@ function Grid(N, size, nDims, ui) {
         // TODO - same code for velocities
         // TODO - z-axis not accounted for
         // TODO - too many ifs... clean up?
-        var x_max = this.N[X_DIM] + 1;
+        var x_max = this.xLength() + 1;
         var y_max = this.N[Y_DIM] + 1;
         // first handle the four corner cases:
         if(x == 0 && y == 0) // (0, 0)
@@ -191,9 +199,9 @@ function Grid(N, size, nDims, ui) {
         var total_dens = 0;
         var w = Math.floor(this.len_cells[X_DIM]);
         var h = Math.floor(this.len_cells[Y_DIM]);
-        var start_x = (this.ui.width - w*(this.N[X_DIM]+2)) / 2;
+        var start_x = (this.ui.width - w*(this.xLength()+2)) / 2;
         var start_y = (this.ui.height - h*(this.N[Y_DIM]+2)) / 2;
-        for(var i=0; i<this.N[X_DIM]+2; i++) {
+        for(var i=0; i<this.xLength()+2; i++) {
             for(var j=0; j<this.N[Y_DIM]+2; j++) {
                 var dens = this.dens[i][j][1];
                 total_dens += dens;
@@ -217,7 +225,7 @@ function Grid(N, size, nDims, ui) {
             ctx.strokeStyle = GRID_COLOR;
             ctx.lineWidth = GRID_LINE_WIDTH;
             // draw the x axis lines
-            for(var i=0; i<this.N[X_DIM]+2+1; i++) {
+            for(var i=0; i<this.xLength()+2+1; i++) {
                 ctx.beginPath();
                 var x = Math.floor(i * w + start_x);
                 ctx.moveTo(x, start_y);
@@ -238,7 +246,7 @@ function Grid(N, size, nDims, ui) {
             // TODO - fix the renderring here to match the above fixes
             ctx.strokeStyle = GRID_VELOCITY_COLOR;
             ctx.lineWidth = GRID_LINE_WIDTH;
-            for(var i=0; i<this.N[X_DIM]+2; i++) {
+            for(var i=0; i<this.xLength()+2; i++) {
                 for(var j=0; j<this.N[Y_DIM]+2; j++) {
                     var x = Math.floor(i * w + start_x);
                     var y = Math.floor((j+1) * h + start_y);
