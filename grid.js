@@ -105,9 +105,6 @@ function Grid(N, size, nDims, ui) {
         var idx = this.getContainerCell(x, y);
 	this.setVelocity(X_DIM, idx.i, idx.j, vX);
 	this.setVelocity(Y_DIM, idx.i, idx.j, vY);
-
-        // this.src_vel[X_DIM][idx.i][idx.j][1] = vX;
-        // this.src_vel[Y_DIM][idx.i][idx.j][1] = vY;
     }
 
     // Adds a source to the density source array of the given value d.
