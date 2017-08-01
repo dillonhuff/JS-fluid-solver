@@ -39,14 +39,6 @@ function Grid(N, size, nDims, ui) {
 	return this.N[Y_DIM];
     }
 
-    this.velocity = function(dim, i, j) {
-	return this.vel[dim][i][j][1];
-    }
-
-    this.setVelocity = function(dim, i, j, val) {
-	return this.vel[dim][i][j][1] = val;
-    }
-
     // compute the length of each cell in each axis
     this.len_cells = new Array();
     for(var i=0; i<this.size.length; i++)
@@ -70,6 +62,22 @@ function Grid(N, size, nDims, ui) {
     this.prev_dens = this.generateDensArray();
     this.src_dens = this.generateDensArray();
 
+    this.velocity = function(dim, i, j) {
+	return this.vel[dim][i][j][1];
+    }
+
+    this.setVelocity = function(dim, i, j, val) {
+	return this.vel[dim][i][j][1] = val;
+    }
+
+    this.density = function(i, j) {
+	return this.dens[i][j][1];
+    }
+
+    this.setDensity = function(i, j, val) {
+	return this.dens[i][j][1] = val;
+    }
+    
     // Zeros out the given velocity and density arrays.
     this.clearArrays = function(v, d) {
         for(var i=0; i<(this.xLength()+2); i++) {
@@ -187,7 +195,8 @@ function Grid(N, size, nDims, ui) {
     // TODO - only works for 2D
     this.registerClick = function(x, y, val) {
         var idx = this.getContainerCell(x, y, 0);
-        this.dens[idx.i][idx.j][1] = val;
+	this.setDensity(idx.i, idx.j, val);
+        //this.dens[idx.i][idx.j][1] = val;
     }
 
     // Renders this Grid using the given context.
@@ -211,7 +220,8 @@ function Grid(N, size, nDims, ui) {
         var start_y = (this.ui.height - h*(this.yLength()+2)) / 2;
         for(var i=0; i<this.xLength()+2; i++) {
             for(var j=0; j<this.yLength()+2; j++) {
-                var dens = this.dens[i][j][1];
+                //var dens = this.dens[i][j][1];
+		var dens = this.density(i, j);
                 total_dens += dens;
                 if(dens > 0) {
                     var x = Math.floor(i * w + start_x);
