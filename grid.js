@@ -43,6 +43,10 @@ function Grid(N, size, nDims, ui) {
 	return this.vel[dim][i][j][1];
     }
 
+    this.setVelocity = function(dim, i, j, val) {
+	return this.vel[dim][i][j][1] = val;
+    }
+
     // compute the length of each cell in each axis
     this.len_cells = new Array();
     for(var i=0; i<this.size.length; i++)
@@ -99,8 +103,11 @@ function Grid(N, size, nDims, ui) {
     // TODO - z-axis?
     this.addVelSource = function(x, y, vX, vY) {
         var idx = this.getContainerCell(x, y);
-        this.src_vel[X_DIM][idx.i][idx.j][1] = vX;
-        this.src_vel[Y_DIM][idx.i][idx.j][1] = vY;
+	this.setVelocity(X_DIM, idx.i, idx.j, vX);
+	this.setVelocity(Y_DIM, idx.i, idx.j, vY);
+
+        // this.src_vel[X_DIM][idx.i][idx.j][1] = vX;
+        // this.src_vel[Y_DIM][idx.i][idx.j][1] = vY;
     }
 
     // Adds a source to the density source array of the given value d.
@@ -254,8 +261,7 @@ function Grid(N, size, nDims, ui) {
                 for(var j = 0; j < this.yLength() + 2; j++) {
                     var x = Math.floor(i * w + start_x);
                     var y = Math.floor((j+1) * h + start_y);
-                    // var vX = Math.ceil(this.vel[X_DIM][i][j][1]*1000);
-                    // var vY = Math.ceil(this.vel[Y_DIM][i][j][1]*1000);
+
                     var vX = Math.ceil(this.velocity(X_DIM, i, j)*1000);
                     var vY = Math.ceil(this.velocity(Y_DIM, j, j)*1000);
 
@@ -270,7 +276,7 @@ function Grid(N, size, nDims, ui) {
         if(this.ui.show_stats) {
             ctx.fillStyle = GRID_TEXT_COLOR;
             ctx.font = "16px Ariel";
-            total_dens = Math.round(10000*total_dens)/10000;
+            total_dens = Math.round(10000*total_dens) / 10000;
             ctx.fillText("Total System Density: " + total_dens, 20, 30);
         }
         ctx.restore();
