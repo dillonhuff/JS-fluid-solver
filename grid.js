@@ -38,7 +38,11 @@ function Grid(N, size, nDims, ui) {
     this.yLength = function() {
 	return this.N[Y_DIM];
     }
-    
+
+    this.velocity = function(dim, i, j) {
+	return this.vel[dim][i][j][1];
+    }
+
     // compute the length of each cell in each axis
     this.len_cells = new Array();
     for(var i=0; i<this.size.length; i++)
@@ -250,8 +254,11 @@ function Grid(N, size, nDims, ui) {
                 for(var j = 0; j < this.yLength() + 2; j++) {
                     var x = Math.floor(i * w + start_x);
                     var y = Math.floor((j+1) * h + start_y);
-                    var vX = Math.ceil(this.vel[X_DIM][i][j][1]*1000);
-                    var vY = Math.ceil(this.vel[Y_DIM][i][j][1]*1000);
+                    // var vX = Math.ceil(this.vel[X_DIM][i][j][1]*1000);
+                    // var vY = Math.ceil(this.vel[Y_DIM][i][j][1]*1000);
+                    var vX = Math.ceil(this.velocity(X_DIM, i, j)*1000);
+                    var vY = Math.ceil(this.velocity(Y_DIM, j, j)*1000);
+
                     ctx.beginPath();
                     ctx.moveTo(x, y);
                     ctx.lineTo(x+vX, y+vY);
