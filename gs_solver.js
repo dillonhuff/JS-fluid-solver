@@ -32,10 +32,15 @@ function GSSolver(nX, nY, n_iters) {
         for(var iter=0; iter<this.n_iters; iter++) {
             for(var i=1; i<=this.nX; i++) {
                 for(var j=1; j<=this.nY; j++) {
-                    x[i][j][1] = div*(b[i][j][1]
-                                      + a*(x[i-1][j][1] + x[i+1][j][1]
-                                         + x[i][j-1][1] + x[i][j+1][1]));
-                }
+                    // x[i][j][1] = div*(b[i][j][1]
+                    //                   + a*(x[i-1][j][1] + x[i+1][j][1]
+                    //                      + x[i][j-1][1] + x[i][j+1][1]));
+
+                    x[i][j][1] = div*(elem(b, i, j)
+                                      + a*(elem(x, i - 1, j) + elem(x, i+1, j)
+                                           + elem(x, i, j-1) + elem(x, i, j+1)));
+
+		}
             }
         }
     {

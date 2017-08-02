@@ -34,3 +34,7 @@ function zeros4d(n, m, l, k) {
         arr.push(zeros3d(m, l, k));
     return arr;
 }
+
+function elem(X, i, j) {
+    return X[i][j][1];
+}
