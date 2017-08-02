@@ -63,7 +63,7 @@ function Simulator(ui) {
             for(var j=1; j<=this.grid.N[Y_DIM]; j++) {
                 // get resulting x coordinate cell after backtracking by vel
                 var start_x = i * lX;
-                var end_x = start_x - this.timeStep * vel[X_DIM][i][j][1];
+                var end_x = start_x - this.timeStep * elem3(vel, X_DIM, i, j);
                 if(end_x < 0)
                     end_x = 0;
                 if(end_x > this.grid.N[X_DIM] * lX)
@@ -72,7 +72,7 @@ function Simulator(ui) {
                 var i1 = i0 + 1;
                 // get resulting y coodinate cell after backtracking by vel
                 var start_y = j * lY;
-                var end_y = start_y - this.timeStep * vel[Y_DIM][i][j][1];
+                var end_y = start_y - this.timeStep * elem3(vel, Y_DIM, i, j);
                 if(end_y < 0)
                     end_y = 0;
                 if(end_y > this.grid.N[Y_DIM] * lY)
@@ -84,9 +84,13 @@ function Simulator(ui) {
                 var s0 = 1 - s1;
                 var t1 = (end_y - start_y)/lY;
                 var t0 = 1 - t1;
-                cur[i][j][1] = s0*(t0*prev[i0][j0][1] + t1*prev[i0][j1][1]) +
+                // cur[i][j][1] = s0*(t0*prev[i0][j0][1] + t1*prev[i0][j1][1]) +
+                //                s1*(t0*prev[i1][j0][1] + t1*prev[i1][j1][1]);
+
+                cur[i][j][1] = s0*(t0*elem(prev, i0, j0, 1) + t1*prev[i0][j1][1]) +
                                s1*(t0*prev[i1][j0][1] + t1*prev[i1][j1][1]);
-            }
+
+	    }
         }
         this.setBoundary(cur, bMode);
     }

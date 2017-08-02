@@ -38,3 +38,11 @@ function zeros4d(n, m, l, k) {
 function elem(X, i, j) {
     return X[i][j][1];
 }
+
+function elem3(X, i, j, k) {
+    return X[i][j][k][1];
+}
+
+function setElem(X, i, j, val) {
+    X[i][j][1] = val;
+}
