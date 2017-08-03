@@ -113,10 +113,10 @@ function Simulator(ui) {
         for(var iter=0; iter<this.ui.solver_iters; iter++) {
             for(var i=1; i<=this.grid.N[X_DIM]; i++) {
                 for(var j=1; j<=this.grid.N[Y_DIM]; j++) {
-                    p[i][j][1] = (div[i][j][1]
-                                  + p[i-1][j][1] + p[i+1][j][1]
-                                  + p[i][j-1][1] + p[i][j+1][1]
-                                 ) / 4;
+                    setElem(p, i, j, (elem(div, i, j)
+                                      + elem(p, i-1, j) + elem(p, i+1, j)
+                                      + p[i][j-1][1] + p[i][j+1][1]
+                                     ) / 4);
                 }
             }
             this.setBoundary(p, BOUNDARY_MIRROR);
