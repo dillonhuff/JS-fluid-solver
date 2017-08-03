@@ -87,8 +87,9 @@ function Simulator(ui) {
                 // cur[i][j][1] = s0*(t0*prev[i0][j0][1] + t1*prev[i0][j1][1]) +
                 //                s1*(t0*prev[i1][j0][1] + t1*prev[i1][j1][1]);
 
-                cur[i][j][1] = s0*(t0*elem(prev, i0, j0, 1) + t1*prev[i0][j1][1]) +
-                               s1*(t0*prev[i1][j0][1] + t1*prev[i1][j1][1]);
+                cur[i][j][1] = s0*(t0*elem(prev, i0, j0) +
+				   t1*elem(prev, i0, j1)) +
+                    s1*(t0*elem(prev, i1, j0) + t1*elem(prev, i1, j1));
 
 	    }
         }
