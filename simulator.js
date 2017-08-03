@@ -84,12 +84,10 @@ function Simulator(ui) {
                 var s0 = 1 - s1;
                 var t1 = (end_y - start_y)/lY;
                 var t0 = 1 - t1;
-                // cur[i][j][1] = s0*(t0*prev[i0][j0][1] + t1*prev[i0][j1][1]) +
-                //                s1*(t0*prev[i1][j0][1] + t1*prev[i1][j1][1]);
 
-                cur[i][j][1] = s0*(t0*elem(prev, i0, j0) +
-				   t1*elem(prev, i0, j1)) +
-                    s1*(t0*elem(prev, i1, j0) + t1*elem(prev, i1, j1));
+                setElem(cur, i, j, s0*(t0*elem(prev, i0, j0) +
+				       t1*elem(prev, i0, j1)) +
+			s1*(t0*elem(prev, i1, j0) + t1*elem(prev, i1, j1)));
 
 	    }
         }
@@ -104,9 +102,9 @@ function Simulator(ui) {
         var div = buf[Y_DIM];
         for(var i=1; i<=this.grid.N[X_DIM]; i++) {
             for(var j=1; j<=this.grid.N[Y_DIM]; j++) {
-                div[i][j][1] = -0.5*(Lx*(vel[X_DIM][i+1][j][1] - vel[X_DIM][i-1][j][1]) +
-                                     Ly*(vel[Y_DIM][i][j+1][1] - vel[Y_DIM][i][j-1][1]));
-                p[i][j][1] = 0;
+                setElem(div, i, j, -0.5*(Lx*(elem3(vel, X_DIM, i+1, j) - elem3(vel, X_DIM, i-1, j)) +
+					 Ly*(elem3(vel, Y_DIM, i, j+1, 1) - elem3(vel, Y_DIM, i, j-1))));
+		setElem(p, i, j, 0);
             }
         }
         this.setBoundary(div, BOUNDARY_MIRROR);
