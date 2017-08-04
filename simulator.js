@@ -43,10 +43,10 @@ function Simulator(ui) {
         for(var iter=0; iter<this.ui.solver_iters; iter++) {
             for(var i=1; i<=this.grid.N[X_DIM]; i++) {
                 for(var j=1; j<=this.grid.N[Y_DIM]; j++) {
-                    cur[i][j][1] = (prev[i][j][1]
-                                    + a*(cur[i-1][j][1] + cur[i+1][j][1] +
-                                         cur[i][j-1][1] + cur[i][j+1][1])
-                              ) / (1 + 4*a);
+                    setElem(cur, i, j, (elem(prev, i, j)
+					+ a*(elem(cur, i-1, j) + elem(cur, i+1, j) +
+                                             elem(cur, i, j-1) + elem(cur, i, j+1))
+				       ) / (1 + 4*a))
                 }
             }
             this.setBoundary(cur, bMode);
