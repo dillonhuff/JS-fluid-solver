@@ -115,7 +115,7 @@ function Simulator(ui) {
                 for(var j=1; j<=this.grid.N[Y_DIM]; j++) {
                     setElem(p, i, j, (elem(div, i, j)
                                       + elem(p, i-1, j) + elem(p, i+1, j)
-                                      + p[i][j-1][1] + p[i][j+1][1]
+                                      + elem(p, i, j-1) + elem(p, i, j+1)
                                      ) / 4);
                 }
             }
@@ -123,8 +123,8 @@ function Simulator(ui) {
         }
         for(var i=1; i<=this.grid.N[X_DIM]; i++) {
             for(var j=1; j<=this.grid.N[Y_DIM]; j++) {
-                vel[X_DIM][i][j][1] -= 0.5*(p[i+1][j][1] - p[i-1][j][1]) / Lx;
-                vel[Y_DIM][i][j][1] -= 0.5*(p[i][j+1][1] - p[i][j-1][1]) / Ly;
+                vel[X_DIM][i][j][1] -= 0.5*(elem(p, i+1, j) - elem(p, i-1, j)) / Lx;
+                vel[Y_DIM][i][j][1] -= 0.5*(elem(p, i, j+1) - elem(p, i, j-1)) / Ly;
             }
         }
         this.setBoundary(vel[X_DIM], BOUNDARY_OPPOSE_X);
@@ -150,8 +150,8 @@ function Simulator(ui) {
         // update left and right edges
         for(var j=1; j<=lastY; j++) {
             if(mode == BOUNDARY_OPPOSE_X) {
-                X[0][j][1] = -X[1][j][1];
-                X[edgeX][j][1] = -X[lastX][j][1];
+                setElem(X, 0, j, -elem(X, 1, j));
+                setElem(X, edgeX, j, -elem(X, lastX, j));
             }
             else {
                 X[0][j][1] = X[1][j][1];
