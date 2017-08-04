@@ -154,8 +154,8 @@ function Simulator(ui) {
                 setElem(X, edgeX, j, -elem(X, lastX, j));
             }
             else {
-                X[0][j][1] = X[1][j][1];
-                X[edgeX][j][1] = X[lastX][j][1];
+                setElem(X, 0, j, elem(X, 1, j));
+                setElem(X, edgeX, j, elem(X, lastX, j));
             }
         }
         // update top and bottom edges
