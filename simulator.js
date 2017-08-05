@@ -170,10 +170,10 @@ function Simulator(ui) {
             }
         }
         // update corners to be averages of their nearest edge neighbors
-	setElem(X, 0, 0,         0.5*(X[1][0][1] + X[0][1][1]));
-        setElem(X, 0, edgeY,     0.5*(X[1][edgeY][1] + X[0][lastY][1]));
-        setElem(X, edgeX, 0,     0.5*(X[lastX][0][1] + X[edgeX][1][1]));
-        setElem(X, edgeX, edgeY, 0.5*(X[lastX][edgeY][1] + X[edgeX][lastY][1]));
+	setElem(X, 0, 0,         0.5*(elem(X, 1, 0) + elem(X, 0, 1)));
+        setElem(X, 0, edgeY,     0.5*(elem(X, 1, edgeY) + elem(X, 0, lastY)));
+        setElem(X, edgeX, 0,     0.5*(elem(X, lastX, 0) + elem(X, edgeX, 1)));
+        setElem(X, edgeX, edgeY, 0.5*(elem(X, lastX, edgeY) + elem(X, edgeX, lastY)));
     }
 
     // Does one velocity field update.
