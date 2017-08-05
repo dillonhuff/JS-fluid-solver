@@ -24,11 +24,11 @@ GRID_LINE_WIDTH = 1;
  *     nDims = the number of dimensions (2 or 3).
  *     ui = the UI object (used for rendering).
  */
-function Grid(N, size, nDims, ui) {
+function Grid(N, size, ui) {
     // set the number of cells in each axis
     this.N = N;
     this.size = size;
-    this.nDims = nDims;
+    this.nDims = 2;
     this.ui = ui;
 
     this.xLength = function() {
