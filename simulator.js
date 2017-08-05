@@ -161,19 +161,19 @@ function Simulator(ui) {
         // update top and bottom edges
         for(var i=1; i<=lastX; i++) {
             if(mode == BOUNDARY_OPPOSE_Y) {
-                X[i][0][1] = -X[i][1][1];
-                X[i][edgeY][1] = -X[i][lastY][1];
+                setElem(X, i, 0, -elem(X, i, 1));
+                setElem(X, i, edgeY, -elem(X, i, lastY));
             }
             else {
-                X[i][0][1] = X[i][1][1];
-                X[i][edgeY][1] = X[i][lastY][1];
+                setElem(X, i, 0, elem(X, i, 1));
+                setElem(X, i, edgeY, elem(X, i, lastY));
             }
         }
         // update corners to be averages of their nearest edge neighbors
-        X[0][0][1]         = 0.5*(X[1][0][1] + X[0][1][1]);
-        X[0][edgeY][1]     = 0.5*(X[1][edgeY][1] + X[0][lastY][1]);
-        X[edgeX][0][1]     = 0.5*(X[lastX][0][1] + X[edgeX][1][1]);
-        X[edgeX][edgeY][1] = 0.5*(X[lastX][edgeY][1] + X[edgeX][lastY][1]);
+	setElem(X, 0, 0,         0.5*(X[1][0][1] + X[0][1][1]));
+        setElem(X, 0, edgeY,     0.5*(X[1][edgeY][1] + X[0][lastY][1]));
+        setElem(X, edgeX, 0,     0.5*(X[lastX][0][1] + X[edgeX][1][1]));
+        setElem(X, edgeX, edgeY, 0.5*(X[lastX][edgeY][1] + X[edgeX][lastY][1]));
     }
 
     // Does one velocity field update.
