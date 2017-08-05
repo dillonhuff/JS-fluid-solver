@@ -46,3 +46,7 @@ function elem3(X, i, j, k) {
 function setElem(X, i, j, val) {
     X[i][j][1] = val;
 }
+
+function subElem3(X, dim, i, j, val) {
+    X[dim][i][j][1] -= val;
+}

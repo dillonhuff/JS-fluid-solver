@@ -123,8 +123,8 @@ function Simulator(ui) {
         }
         for(var i=1; i<=this.grid.N[X_DIM]; i++) {
             for(var j=1; j<=this.grid.N[Y_DIM]; j++) {
-                vel[X_DIM][i][j][1] -= 0.5*(elem(p, i+1, j) - elem(p, i-1, j)) / Lx;
-                vel[Y_DIM][i][j][1] -= 0.5*(elem(p, i, j+1) - elem(p, i, j-1)) / Ly;
+		subElem3(vel, X_DIM, i, j, 0.5*(elem(p, i+1, j) - elem(p, i-1, j)) / Lx);
+		subElem3(vel, Y_DIM, i, j, 0.5*(elem(p, i, j+1) - elem(p, i, j-1)) / Ly);
             }
         }
         this.setBoundary(vel[X_DIM], BOUNDARY_OPPOSE_X);
