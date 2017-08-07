@@ -19,8 +19,8 @@ function Simulator(ui) {
     this.ui = ui;
     this.timeStep = this.ui.dT;
     // TODO - change ui.___ to getter functions.
-    this.grid = new Grid([this.ui.grid_cols, this.ui.grid_rows, 1],
-                         [this.ui.width, this.ui.height, 0], ui);
+    this.grid = new Grid([this.ui.grid_cols, this.ui.grid_rows],
+                         [this.ui.width, this.ui.height], ui);
     // To each element of array dest adds the respective element of the
     // source (also an array) multiplied by the time step.
     // Use to add source arrays for velocity and density.

@@ -47,12 +47,12 @@ function Grid(N, size, ui) {
 
     // Generates a velocity array appropriately fitted to this grid.
     this.generateVelArray = function() {
-        return zeros4d(3, this.xLength()+2, this.yLength()+2, this.N[Z_DIM]+2);
+        return zeros3d(3, this.xLength()+2, this.yLength()+2);//, this.N[Z_DIM]+2);
     }
 
     // Generates a density array appropriately fitted to this grid.
     this.generateDensArray = function() {
-        return zeros3d(this.xLength()+2, this.yLength()+2, this.N[Z_DIM]+2);
+        return zeros2d(this.xLength()+2, this.yLength()+2);//, this.N[Z_DIM]+2);
     }
     
     // allocate the velocity and density field arrays (3rd dim ignored for 2D).

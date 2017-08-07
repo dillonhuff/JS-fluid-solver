@@ -36,17 +36,21 @@ function zeros4d(n, m, l, k) {
 }
 
 function elem(X, i, j) {
-    return X[i][j][1];
+    //return X[i][j][1];
+    return X[i][j];
 }
 
 function elem3(X, i, j, k) {
-    return X[i][j][k][1];
+    //return X[i][j][k][1];
+    return X[i][j][k];//[1];
 }
 
 function setElem(X, i, j, val) {
-    X[i][j][1] = val;
+    //X[i][j][1] = val;
+    X[i][j] = val;
 }
 
 function subElem3(X, dim, i, j, val) {
-    X[dim][i][j][1] -= val;
+    //X[dim][i][j][1] -= val;
+    X[dim][i][j] -= val;
 }
