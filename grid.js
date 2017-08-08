@@ -64,31 +64,37 @@ function Grid(N, size, ui) {
     this.src_dens = this.generateDensArray();
 
     this.velocity = function(dim, i, j) {
-	return this.vel[dim][i][j][1];
+	//return this.vel[dim][i][j][1];
+	return this.vel[dim][i][j];
     }
 
     this.setVelocity = function(dim, i, j, val) {
-	return this.vel[dim][i][j][1] = val;
+	//return this.vel[dim][i][j][1] = val;
+	return this.vel[dim][i][j] = val;
     }
 
     this.density = function(i, j) {
-	return this.dens[i][j][1];
+	//return this.dens[i][j][1];
+	return this.dens[i][j];
     }
 
     this.setDensity = function(i, j, val) {
-	return this.dens[i][j][1] = val;
+	//return this.dens[i][j][1] = val;
+	return this.dens[i][j] = val;
     }
     
     // Zeros out the given velocity and density arrays.
     this.clearArrays = function(v, d) {
         for(var i=0; i<(this.xLength()+2); i++) {
             for(var j=0; j<(this.yLength()+2); j++) {
-                for(var k=0; k<(this.N[Z_DIM]+2); k++) {
-                    for(var dim=0; dim<3; dim++) {
-                        v[dim][i][j][k] = 0;
-		    }
-                    d[i][j][k] = 0;
-                }
+                //for(var k=0; k<(this.N[Z_DIM]+2); k++) {
+                for(var dim=0; dim<3; dim++) {
+                    //v[dim][i][j][k] = 0;
+		    v[dim][i][j] = 0;
+		}
+                //d[i][j][k] = 0;
+		d[i][j] = 0;
+                //}
             }
         }
     }
@@ -122,7 +128,8 @@ function Grid(N, size, ui) {
     // TODO - z-axis?
     this.addDensSource = function(x, y, d) {
         var idx = this.getContainerCell(x, y);
-        this.src_dens[idx.i][idx.j][1] = d;
+        //this.src_dens[idx.i][idx.j][1] = d;
+	this.src_dens[idx.i][idx.j] = d;
     }
 
     // Swaps the velocity array pointers (old and new).
