@@ -222,6 +222,10 @@ function Grid(N, size, ui) {
         ctx.save();
         // draw the densities
         var total_dens = 0;
+
+	// alert(this.len_cells[X_DIM]);
+	// alert(this.len_cells[Y_DIM]);
+
         var w = Math.floor(this.len_cells[X_DIM]);
         var h = Math.floor(this.len_cells[Y_DIM]);
         var start_x = (this.ui.width - w*(this.xLength()+2)) / 2;
