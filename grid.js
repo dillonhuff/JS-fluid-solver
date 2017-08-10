@@ -131,6 +131,8 @@ function Grid(N, size, ui) {
         var idx = this.getContainerCell(x, y);
         //this.src_dens[idx.i][idx.j][1] = d;
 	this.src_dens[idx.i][idx.j] = d;
+
+	alert('Density at ( ' + idx.i + ', ' + idx.j + ' ) = ' + this.density(idx.i, idx.j));
     }
 
     // Swaps the velocity array pointers (old and new).
@@ -194,18 +196,30 @@ function Grid(N, size, ui) {
 
     // Returns an object containing the i, j, k index of the cell that
     // contains the given x, y, z point.
+    // this.getContainerCell = function(x, y, z) {
+    //     var i = Math.floor(x / this.len_cells[X_DIM]);
+    //     var j = Math.floor(y / this.len_cells[Y_DIM]);
+    //     var k = Math.floor(z / this.len_cells[Z_DIM]);
+    //     return {i:i, j:j, k:k};
+    // }
+
+    // Returns an object containing the i, j index of the cell that
+    // contains the given x, y point.
     this.getContainerCell = function(x, y, z) {
         var i = Math.floor(x / this.len_cells[X_DIM]);
         var j = Math.floor(y / this.len_cells[Y_DIM]);
-        var k = Math.floor(z / this.len_cells[Z_DIM]);
-        return {i:i, j:j, k:k};
+        return {i:i, j:j};
     }
-
+    
     // Adds an immediate source to the clicked cell - TODO
     // TODO - only works for 2D
     this.registerClick = function(x, y, val) {
+        // var i = Math.floor(x / this.len_cells[X_DIM]);
+        // var j = Math.floor(y / this.len_cells[Y_DIM]);
+
         var idx = this.getContainerCell(x, y, 0);
 	this.setDensity(idx.i, idx.j, val);
+	//this.setDensity(i, j, val);
     }
 
     // Renders this Grid using the given context.
@@ -238,6 +252,10 @@ function Grid(N, size, ui) {
 		if (dens > 0) {
 		    alert('dens = ' + dens);
 		}
+
+		// else {
+		//     alert('dens is zero = ' + dens);
+		// }
 
                 total_dens += dens;
                 if(dens > 0) {
