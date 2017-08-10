@@ -127,12 +127,12 @@ function Grid(N, size, ui) {
     // x, y location is absolute, and the appropriate cell is determined.
     // TODO - z-axis?
     this.addDensSource = function(x, y, d) {
-	alert('Adding density ' + d + ' at x = ' + x + ', y = ' + y);
+	//alert('Adding density ' + d + ' at x = ' + x + ', y = ' + y);
         var idx = this.getContainerCell(x, y);
         //this.src_dens[idx.i][idx.j][1] = d;
 	this.src_dens[idx.i][idx.j] = d;
 
-	alert('Density at ( ' + idx.i + ', ' + idx.j + ' ) = ' + this.density(idx.i, idx.j));
+	//alert('Density at ( ' + idx.i + ', ' + idx.j + ' ) = ' + this.density(idx.i, idx.j));
     }
 
     // Swaps the velocity array pointers (old and new).
@@ -249,9 +249,9 @@ function Grid(N, size, ui) {
             for(var j=0; j<this.yLength()+2; j++) {
 		var dens = this.density(i, j);
 
-		if (dens > 0) {
-		    alert('dens = ' + dens);
-		}
+		// if (dens > 0) {
+		//     alert('dens = ' + dens);
+		// }
 
 		// else {
 		//     alert('dens is zero = ' + dens);
