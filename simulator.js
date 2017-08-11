@@ -88,8 +88,8 @@ function Simulator(ui) {
                 var t1 = (end_y - start_y)/lY;
                 var t0 = 1 - t1;
 
-                setElem(cur, i, j, s0*(t0*elem(prev, i0, j0) +
-				       t1*elem(prev, i0, j1)) +
+                setElem(cur, i, j,
+			s0*(t0*elem(prev, i0, j0) + t1*elem(prev, i0, j1)) +
 			s1*(t0*elem(prev, i1, j0) + t1*elem(prev, i1, j1)));
 
 	    }
@@ -187,14 +187,16 @@ function Simulator(ui) {
             this.addSource(this.grid.vel[dim], this.grid.src_vel[dim]);
         }
         this.grid.swapV();
-        for(var dim=0; dim<N_DIMS; dim++)
+        for(var dim=0; dim<N_DIMS; dim++) {
             this.diffuse(this.grid.vel[dim], this.grid.prev_vel[dim],
                          this.ui.visc, dim+1); // TODO - boundary dim
+	}
         this.project(this.grid.vel, this.grid.prev_vel);
         this.grid.swapV();
-        for(var dim=0; dim<N_DIMS; dim++)
+        for(var dim=0; dim<N_DIMS; dim++) {
             this.advect(this.grid.vel[dim], this.grid.prev_vel[dim],
                         this.grid.vel, dim+1); // TODO - boundary dim
+	}
         this.project(this.grid.vel, this.grid.prev_vel);
     }
 
