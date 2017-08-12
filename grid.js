@@ -151,7 +151,7 @@ function Grid(N, size, ui) {
 
     // Returns an object containing the i, j index of the cell that
     // contains the given x, y point.
-    this.getContainerCell = function(x, y, z) {
+    this.getContainerCell = function(x, y) {
         var i = Math.floor(x / this.len_cells[X_DIM]);
         var j = Math.floor(y / this.len_cells[Y_DIM]);
         return {i:i, j:j};
