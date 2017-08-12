@@ -106,7 +106,7 @@ function Simulator(ui) {
         for(var i=1; i<=this.grid.N[X_DIM]; i++) {
             for(var j=1; j<=this.grid.N[Y_DIM]; j++) {
                 setElem(div, i, j, -0.5*(Lx*(elem3(vel, X_DIM, i+1, j) - elem3(vel, X_DIM, i-1, j)) +
-					 Ly*(elem3(vel, Y_DIM, i, j+1, 1) - elem3(vel, Y_DIM, i, j-1))));
+					 Ly*(elem3(vel, Y_DIM, i, j+1) - elem3(vel, Y_DIM, i, j-1))));
 		setElem(p, i, j, 0);
             }
         }
