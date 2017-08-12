@@ -240,11 +240,12 @@ function Simulator(ui) {
     this.addGravity = function(g) {
         for(var i=0; i<this.grid.N[X_DIM]+2; i++) {
             for(var j=0; j<this.grid.N[Y_DIM]+2; j++) {
+		this.grid.src_vel[Y_DIM][i][j] = g;
 
 		// Is this dimension ever needed?
-                for(var k=0; k<this.grid.N[Z_DIM]+2; k++) {
-                    this.grid.src_vel[Y_DIM][i][j][k] = g;
-		}
+                // for(var k=0; k<this.grid.N[Z_DIM]+2; k++) {
+                //     this.grid.src_vel[Y_DIM][i][j][k] = g;
+		// }
 	    }
 	}
     }
