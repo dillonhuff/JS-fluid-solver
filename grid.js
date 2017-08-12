@@ -149,60 +149,6 @@ function Grid(N, size, ui) {
         this.prev_dens = temp;
     }
 
-    // Returns the density value at the given index. Returns previous
-    // values if "prev" is set to true. Accounts for border cell cases.
-    // this.getD = function(x, y, z, prev) {
-    //     var d = this.dens;
-    //     if(prev)
-    //         d = this.prev_dens;
-    //     return this.get(x, y, z, d);
-    // }
-
-    // Returns the array value of A at the given index. Accounts for
-    // border cell cases (which mirror their closest inner neighbor).
-    // NOTE: border cases only considered for x and y so far.
-    // this.get = function(x, y, z, A) {
-    //     // TODO - same code for velocities
-    //     // TODO - z-axis not accounted for
-    //     // TODO - too many ifs... clean up?
-    //     var x_max = this.xLength() + 1;
-    //     var y_max = this.yLength() + 1;
-    //     // first handle the four corner cases:
-    //     if(x == 0 && y == 0) // (0, 0)
-    //         return 0.5*(this.get(1, 0, z, A) +
-    //                     this.get(0, 1, z, A));
-    //     else if(x == 0 && y == y_max) // (0, N+1)
-    //         return 0.5*(this.get(1, y_max, z, A) +
-    //                     this.get(0, y_max-1, z, A));
-    //     else if(x == x_max && y == 0) // (N+1, 0)
-    //         return 0.5*(this.get(x_max, 1, z, A) +
-    //                     this.get(x_max-1, 0, z, A));
-    //     else if(x == x_max && y == y_max) // (N+1, N+1)
-    //         return 0.5*(this.get(x_max-1, y_max, z, A) +
-    //                     this.get(x_max, y_max-1, z, A));
-    //     // now the edge cases
-    //     else if(x == 0) // left edge
-    //         return A[1][y][z];
-    //     else if(x == x_max) // right edge
-    //         return A[x_max-1][y][z];
-    //     else if(y == 0) // top edge
-    //         return A[x][1][z];
-    //     else if(y == y_max) // bottom edge
-    //         return A[x][y_max-1][z];
-    //     // otherwise, return the cell value normally
-    //     else
-    //         return A[x][y][z];
-    // }
-
-    // Returns an object containing the i, j, k index of the cell that
-    // contains the given x, y, z point.
-    // this.getContainerCell = function(x, y, z) {
-    //     var i = Math.floor(x / this.len_cells[X_DIM]);
-    //     var j = Math.floor(y / this.len_cells[Y_DIM]);
-    //     var k = Math.floor(z / this.len_cells[Z_DIM]);
-    //     return {i:i, j:j, k:k};
-    // }
-
     // Returns an object containing the i, j index of the cell that
     // contains the given x, y point.
     this.getContainerCell = function(x, y, z) {
