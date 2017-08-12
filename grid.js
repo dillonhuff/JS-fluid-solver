@@ -88,7 +88,7 @@ function Grid(N, size, ui) {
         for(var i=0; i<(this.xLength()+2); i++) {
             for(var j=0; j<(this.yLength()+2); j++) {
                 //for(var k=0; k<(this.N[Z_DIM]+2); k++) {
-                for(var dim=0; dim<3; dim++) {
+                for(var dim = 0; dim < 2; dim++) {
                     //v[dim][i][j][k] = 0;
 		    v[dim][i][j] = 0;
 		}
