@@ -85,8 +85,8 @@ function Grid(N, size, ui) {
     
     // Zeros out the given velocity and density arrays.
     this.clearArrays = function(v, d) {
-        for(var i=0; i<(this.xLength()+2); i++) {
-            for(var j=0; j<(this.yLength()+2); j++) {
+        for(var i = 0; i < (this.xLength() + 2); i++) {
+            for(var j = 0; j < (this.yLength() + 2); j++) {
                 //for(var k=0; k<(this.N[Z_DIM]+2); k++) {
                 for(var dim = 0; dim < 2; dim++) {
                     //v[dim][i][j][k] = 0;
@@ -160,12 +160,8 @@ function Grid(N, size, ui) {
     // Adds an immediate source to the clicked cell - TODO
     // TODO - only works for 2D
     this.registerClick = function(x, y, val) {
-        // var i = Math.floor(x / this.len_cells[X_DIM]);
-        // var j = Math.floor(y / this.len_cells[Y_DIM]);
-
-        var idx = this.getContainerCell(x, y, 0);
+        var idx = this.getContainerCell(x, y); //, 0);
 	this.setDensity(idx.i, idx.j, val);
-	//this.setDensity(i, j, val);
     }
 
     // Renders this Grid using the given context.
@@ -191,8 +187,8 @@ function Grid(N, size, ui) {
         var h = Math.floor(this.len_cells[Y_DIM]);
         var start_x = (this.ui.width - w*(this.xLength()+2)) / 2;
         var start_y = (this.ui.height - h*(this.yLength()+2)) / 2;
-        for(var i=0; i<this.xLength()+2; i++) {
-            for(var j=0; j<this.yLength()+2; j++) {
+        for(var i = 0; i < this.xLength() + 2; i++) {
+            for(var j = 0; j < this.yLength() + 2; j++) {
 		var dens = this.density(i, j);
 
 		// if (dens > 0) {
