@@ -113,9 +113,9 @@ function Simulator(ui) {
         this.setBoundary(div, BOUNDARY_MIRROR);
         this.setBoundary(p, BOUNDARY_MIRROR);
         // TODO - move to a separate function (shared w/ diffuse)
-        for(var iter=0; iter<this.ui.solver_iters; iter++) {
-            for(var i=1; i<=this.grid.N[X_DIM]; i++) {
-                for(var j=1; j<=this.grid.N[Y_DIM]; j++) {
+        for(var iter = 0; iter < this.ui.solver_iters; iter++) {
+            for(var i = 1; i <= this.grid.N[X_DIM]; i++) {
+                for(var j = 1; j <= this.grid.N[Y_DIM]; j++) {
                     setElem(p, i, j, (elem(div, i, j)
                                       + elem(p, i-1, j) + elem(p, i+1, j)
                                       + elem(p, i, j-1) + elem(p, i, j+1)
@@ -181,19 +181,19 @@ function Simulator(ui) {
 
     // Does one velocity field update.
     this.vStep = function() {
-        for(var dim=0; dim<N_DIMS; dim++) {
+        for(var dim = 0; dim < N_DIMS; dim++) {
             //if(keep_prev)
             this.addSource(this.grid.vel[dim], this.grid.prev_vel[dim]);
             this.addSource(this.grid.vel[dim], this.grid.src_vel[dim]);
         }
         this.grid.swapV();
-        for(var dim=0; dim<N_DIMS; dim++) {
+        for(var dim = 0; dim < N_DIMS; dim++) {
             this.diffuse(this.grid.vel[dim], this.grid.prev_vel[dim],
                          this.ui.visc, dim+1); // TODO - boundary dim
 	}
         this.project(this.grid.vel, this.grid.prev_vel);
         this.grid.swapV();
-        for(var dim=0; dim<N_DIMS; dim++) {
+        for(var dim = 0; dim < N_DIMS; dim++) {
             this.advect(this.grid.vel[dim], this.grid.prev_vel[dim],
                         this.grid.vel, dim+1); // TODO - boundary dim
 	}
@@ -226,6 +226,9 @@ function Simulator(ui) {
             else {
                 var vX = this.ui.getDragX();
                 var vY = this.ui.getDragY();
+
+		console.log('vX = ' + vX + '\nvY = ' + vY);
+
                 this.grid.addVelSource(src_point.x, src_point.y, vX, vY);
             }
         }
