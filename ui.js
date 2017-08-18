@@ -32,9 +32,9 @@ function UI(canvas_id) {
 
     // UI constants (call defaults() to change to default).
     this.defaults = function() {
-        this.action_type = ACT_DENSITY_SRC;
+        this.action_type = ACT_VELOCITY_SRC;
         this.show_grid = false;
-        this.show_vels = false;
+        this.show_vels = true;
         this.show_stats = false;
         this.visc = 0.1;
         this.diff = 0.1;
