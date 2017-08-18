@@ -73,6 +73,11 @@ function Grid(N, size, ui) {
 	return this.vel[dim][i][j] = val;
     }
 
+    this.setSrcVel = function(dim, i, j, val) {
+	//return this.vel[dim][i][j][1] = val;
+	return this.src_vel[dim][i][j] = val;
+    }
+    
     this.density = function(i, j) {
 	//return this.dens[i][j][1];
 	return this.dens[i][j];
@@ -119,8 +124,8 @@ function Grid(N, size, ui) {
     // TODO - z-axis?
     this.addVelSource = function(x, y, vX, vY) {
         var idx = this.getContainerCell(x, y);
-	this.setVelocity(X_DIM, idx.i, idx.j, vX);
-	this.setVelocity(Y_DIM, idx.i, idx.j, vY);
+        this.src_vel[X_DIM][idx.i][idx.j] = vX;
+        this.src_vel[Y_DIM][idx.i][idx.j] = vY;
     }
 
     // Adds a source to the density source array of the given value d.

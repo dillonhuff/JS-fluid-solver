@@ -25,12 +25,18 @@ function Simulator(ui) {
     // source (also an array) multiplied by the time step.
     // Use to add source arrays for velocity and density.
     this.addSource = function(dest, source) {
+
+	// console.log('Source = ' + source);
+	// console.log('Dest   = ' + dest);
+
         for(var i=0; i<this.grid.N[X_DIM]+2; i++) {
             for(var j=0; j<this.grid.N[Y_DIM]+2; j++) {
 		dest[i][j] += this.timeStep * source[i][j];
+
                 // for(var k=0; k<this.grid.N[Z_DIM]+2; k++) {
                 //     dest[i][j][k] += this.timeStep * source[i][j][k];
 		// }
+
 	    }
 	}
     }
@@ -186,20 +192,20 @@ function Simulator(ui) {
             this.addSource(this.grid.vel[dim], this.grid.src_vel[dim]);
         }
 
-	//this.grid.swapV();
+	this.grid.swapV();
 
-	// for(var dim = 0; dim < N_DIMS; dim++) {
-        //     this.diffuse(this.grid.vel[dim], this.grid.prev_vel[dim],
-        //                  this.ui.visc, dim+1); // TODO - boundary dim
-	// }
+	for(var dim = 0; dim < N_DIMS; dim++) {
+            this.diffuse(this.grid.vel[dim], this.grid.prev_vel[dim],
+                         this.ui.visc, dim+1); // TODO - boundary dim
+	}
 
-        // //this.project(this.grid.vel, this.grid.prev_vel);
-        // this.grid.swapV();
-        // for(var dim = 0; dim < N_DIMS; dim++) {
-        //     this.advect(this.grid.vel[dim], this.grid.prev_vel[dim],
-        //                 this.grid.vel, dim+1); // TODO - boundary dim
-	// }
-        // this.project(this.grid.vel, this.grid.prev_vel);
+        //this.project(this.grid.vel, this.grid.prev_vel);
+        this.grid.swapV();
+        for(var dim = 0; dim < N_DIMS; dim++) {
+            this.advect(this.grid.vel[dim], this.grid.prev_vel[dim],
+                        this.grid.vel, dim+1); // TODO - boundary dim
+	}
+        this.project(this.grid.vel, this.grid.prev_vel);
     }
 
     // Does one scalar field update.
