@@ -235,7 +235,7 @@ function Simulator(ui) {
                 var vX = this.ui.getDragX();
                 var vY = this.ui.getDragY();
 
-		console.log('vX = ' + vX + '\nvY = ' + vY);
+		//console.log('vX = ' + vX + '\nvY = ' + vY);
 
                 this.grid.addVelSource(src_point.x, src_point.y, vX, vY);
             }

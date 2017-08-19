@@ -155,14 +155,17 @@ function UI(canvas_id) {
 
     // Returns the mouse action type that the GUI is currently set to.
     this.getActionType = function() {
-        if(   (this.action_type == ACT_DENSITY_SRC
-               && this.mouse_button == MOUSE_LEFT)
-           || (this.action_type == ACT_VELOCITY_SRC
-               && this.mouse_button == MOUSE_RIGHT)
-          )
+        if (   (this.action_type == ACT_DENSITY_SRC
+		&& this.mouse_button == MOUSE_LEFT)
+               || (this.action_type == ACT_VELOCITY_SRC
+		   && this.mouse_button == MOUSE_RIGHT)
+           ) {
             return ACT_DENSITY_SRC;
-        else
+        } else if (this.action_type == ACT_VELOCITY_SRC) {
             return ACT_VELOCITY_SRC;
+	} else {
+	    alert('No action!');
+	}
     }
 
     // Returns the X-velocity of the user's current mouse movement.
