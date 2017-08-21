@@ -228,17 +228,19 @@ function Simulator(ui) {
         this.grid.clearPrev();
         this.grid.clearSources();
         var src_point = this.ui.getSource();
-        if(src_point) {
-            if(this.ui.getActionType() == ACT_DENSITY_SRC)
+        if (src_point) {
+            if (this.ui.getActionType() == ACT_DENSITY_SRC) {
                 this.grid.addDensSource(src_point.x, src_point.y, 1);
-            else {
+            } else if (this.ui.getActionType() == ACT_VELOCITY_SRC) {
                 var vX = this.ui.getDragX();
                 var vY = this.ui.getDragY();
 
-		//console.log('vX = ' + vX + '\nvY = ' + vY);
+		console.log('vX = ' + vX + '\nvY = ' + vY);
 
                 this.grid.addVelSource(src_point.x, src_point.y, vX, vY);
-            }
+            } else {
+		alert('No action!');
+	    }
         }
         this.vStep();
         this.dStep();

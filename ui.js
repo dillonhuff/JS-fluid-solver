@@ -7,7 +7,7 @@
 // GUI constants
 ACT_DENSITY_SRC = 0;
 ACT_VELOCITY_SRC = 1;
-ACT_ADD_MATERIAL_SRC = 1;
+ACT_ADD_MATERIAL_SRC = 2;
 MOUSE_LEFT = 0;
 MOUSE_RIGHT = 1;
 
@@ -59,13 +59,23 @@ function UI(canvas_id) {
         document.getElementById("solver_iters").value = this.solver_iters;
         var dens_drag_box = document.getElementById("action_dens_drag");
         var vel_drag_box = document.getElementById("action_vel_drag");
+	var add_material_box = document.getElementById("action_add_material");
+
         if (this.action_type == ACT_DENSITY_SRC) {
             dens_drag_box.checked = true;
             vel_drag_box.checked = false;
+	    add_material_box.checked = false;
+	    
         } else if (this.action_type == ACT_VELOCITY_SRC) {
             dens_drag_box.checked = false;
             vel_drag_box.checked = true;
-        } else {
+	    add_material_box.checked = false;
+        } else if (this.action_type == ACT_ADD_MATERIAL_SRC) {
+            dens_drag_box.checked = false;
+            vel_drag_box.checked = false;
+	    add_material_box.checked = true;
+	    
+	} else {
 	    alert('Other action!!');
 	}
     }
@@ -82,6 +92,8 @@ function UI(canvas_id) {
         this.grid_cols = parseInt(document.getElementById("grid_cols").value);
         this.grid_rows = parseInt(document.getElementById("grid_rows").value);
         this.solver_iters = parseInt(document.getElementById("solver_iters").value);
+
+	alert(document.getElementById("action_add_material").checked);
 
         if (document.getElementById("action_vel_drag").checked) {
             this.action_type = ACT_VELOCITY_SRC;
