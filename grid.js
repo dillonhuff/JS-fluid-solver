@@ -31,6 +31,9 @@ function Grid(N, size, ui) {
     this.nDims = 2;
     this.ui = ui;
 
+    this.solid_cells_x = new Array();
+    this.solid_cells_y = new Array();
+
     this.xLength = function() {
 	return this.N[X_DIM];
     }

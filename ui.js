@@ -93,8 +93,6 @@ function UI(canvas_id) {
         this.grid_rows = parseInt(document.getElementById("grid_rows").value);
         this.solver_iters = parseInt(document.getElementById("solver_iters").value);
 
-	alert(document.getElementById("action_add_material").checked);
-
         if (document.getElementById("action_vel_drag").checked) {
             this.action_type = ACT_VELOCITY_SRC;
 	} else if (document.getElementById("action_dens_drag").checked) {
@@ -102,7 +100,7 @@ function UI(canvas_id) {
 	} else if (document.getElementById("action_add_material").checked) {
 	    this.action_type = ACT_ADD_MATERIAL_SRC;
 	} else {
-	    alert('No action!');
+	    alert('No action checked!');
 	}
     }
 
@@ -175,8 +173,10 @@ function UI(canvas_id) {
             return ACT_DENSITY_SRC;
         } else if (this.action_type == ACT_VELOCITY_SRC) {
             return ACT_VELOCITY_SRC;
+	} else if (this.action_type == ACT_ADD_MATERIAL_SRC) {
+	    return ACT_ADD_MATERIAL_SRC;
 	} else {
-	    alert('No action!');
+	    alert('No action! Action type = ' + this.action_type);
 	}
     }
 

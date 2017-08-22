@@ -238,8 +238,12 @@ function Simulator(ui) {
 		console.log('vX = ' + vX + '\nvY = ' + vY);
 
                 this.grid.addVelSource(src_point.x, src_point.y, vX, vY);
-            } else {
-		alert('No action!');
+            } else if (this.ui.getActionType() == ACT_ADD_MATERIAL_SRC) {
+		var idx = this.grid.getContainerCell(src_point.x, src_point.y);
+		this.grid.solid_cells_x.push(idx.i);
+		this.grid.solid_cells_y.push(idx.j);
+	    } else {
+		alert('No action in simulator!');
 	    }
         }
         this.vStep();
