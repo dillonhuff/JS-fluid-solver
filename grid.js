@@ -7,6 +7,7 @@
 /* Grid Object Constants: */
 GRID_COLOR = "#555555";
 GRID_DENSITY_COLOR = "0, 153, 153"; // has to be in RGB!
+GRID_SOLID_COLOR = "gray";
 GRID_VELOCITY_COLOR = "yellow";
 GRID_TEXT_COLOR = "#00FF00";
 GRID_LINE_WIDTH = 1;
@@ -193,24 +194,17 @@ function Grid(N, size, ui) {
 
         var w = Math.floor(this.len_cells[X_DIM]);
         var h = Math.floor(this.len_cells[Y_DIM]);
-        var start_x = (this.ui.width - w*(this.xLength()+2)) / 2;
-        var start_y = (this.ui.height - h*(this.yLength()+2)) / 2;
+        var start_x = (this.ui.width - w*(this.xLength() + 2)) / 2;
+        var start_y = (this.ui.height - h*(this.yLength() + 2)) / 2;
         for(var i = 0; i < this.xLength() + 2; i++) {
             for(var j = 0; j < this.yLength() + 2; j++) {
 		var dens = this.density(i, j);
-
-		// if (dens > 0) {
-		//     alert('dens = ' + dens);
-		// }
-
-		// else {
-		//     alert('dens is zero = ' + dens);
-		// }
 
                 total_dens += dens;
                 if(dens > 0) {
                     var x = Math.floor(i * w + start_x);
                     var y = Math.floor(j * h + start_y);
+
                     // TODO - changed for visualization
                     var real_dens = dens;
                     dens *= 1000;
@@ -244,7 +238,18 @@ function Grid(N, size, ui) {
                 ctx.stroke();
             }
         }
-        // if option is enabled, draw the velocity vectors
+
+	// Fill in the solid cells
+	for (var i = 0; i < this.solid_cells_x.length; i++) {
+	    var cx = this.solid_cells_x[i];
+	    var cy = this.solid_cells_y[i];
+	    ctx.fillStyle = GRID_SOLID_COLOR;
+            var x = Math.floor(cx * w + start_x);
+            var y = Math.floor(cy * h + start_y);
+	    ctx.fillRect(x, y, w, h);
+	}
+
+	// if option is enabled, draw the velocity vectors
         if(this.ui.show_vels) {
             // TODO - fix the renderring here to match the above fixes
             ctx.strokeStyle = GRID_VELOCITY_COLOR;
