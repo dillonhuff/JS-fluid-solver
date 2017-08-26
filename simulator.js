@@ -154,8 +154,7 @@ function Simulator(ui) {
             if(mode == BOUNDARY_OPPOSE_X) {
                 setElem(X, 0, j, -elem(X, 1, j));
                 setElem(X, edgeX, j, -elem(X, lastX, j));
-            }
-            else {
+            } else {
                 setElem(X, 0, j, elem(X, 1, j));
                 setElem(X, edgeX, j, elem(X, lastX, j));
             }
@@ -165,8 +164,7 @@ function Simulator(ui) {
             if(mode == BOUNDARY_OPPOSE_Y) {
                 setElem(X, i, 0, -elem(X, i, 1));
                 setElem(X, i, edgeY, -elem(X, i, lastY));
-            }
-            else {
+            } else {
                 setElem(X, i, 0, elem(X, i, 1));
                 setElem(X, i, edgeY, elem(X, i, lastY));
             }
