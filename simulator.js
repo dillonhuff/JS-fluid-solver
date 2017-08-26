@@ -26,17 +26,10 @@ function Simulator(ui) {
     // Use to add source arrays for velocity and density.
     this.addSource = function(dest, source) {
 
-	// console.log('Source = ' + source);
-	// console.log('Dest   = ' + dest);
 
         for(var i=0; i<this.grid.N[X_DIM]+2; i++) {
             for(var j=0; j<this.grid.N[Y_DIM]+2; j++) {
 		dest[i][j] += this.timeStep * source[i][j];
-
-                // for(var k=0; k<this.grid.N[Z_DIM]+2; k++) {
-                //     dest[i][j][k] += this.timeStep * source[i][j][k];
-		// }
-
 	    }
 	}
     }

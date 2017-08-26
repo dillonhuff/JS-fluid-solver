@@ -182,6 +182,32 @@ function Grid(N, size, ui) {
             alert("Dimension not supported.");
     }
 
+    this.renderVels = function(ctx) {
+        var w = Math.floor(this.len_cells[X_DIM]);
+        var h = Math.floor(this.len_cells[Y_DIM]);
+        var start_x = (this.ui.width - w*(this.xLength() + 2)) / 2;
+        var start_y = (this.ui.height - h*(this.yLength() + 2)) / 2;
+
+        // TODO - fix the renderring here to match the above fixes
+        ctx.strokeStyle = GRID_VELOCITY_COLOR;
+        ctx.lineWidth = GRID_LINE_WIDTH;
+        for(var i = 0; i < this.xLength() + 2; i++) {
+            for(var j = 0; j < this.yLength() + 2; j++) {
+                var x = Math.floor(i * w + start_x);
+                var y = Math.floor((j+1) * h + start_y);
+
+                var vX = Math.ceil(this.velocity(X_DIM, i, j)*1000);
+                var vY = Math.ceil(this.velocity(Y_DIM, j, j)*1000);
+
+                ctx.beginPath();
+                ctx.moveTo(x, y);
+                ctx.lineTo(x+vX, y+vY);
+                ctx.stroke();
+            }
+        }
+
+    }
+
     // Render a 2D representation of this Grid. Only works for 2D setup.
     this.render2D = function(ctx) {
         ctx.clearRect(0, 0, this.size[X_DIM], this.size[Y_DIM]);
@@ -251,23 +277,7 @@ function Grid(N, size, ui) {
 
 	// if option is enabled, draw the velocity vectors
         if(this.ui.show_vels) {
-            // TODO - fix the renderring here to match the above fixes
-            ctx.strokeStyle = GRID_VELOCITY_COLOR;
-            ctx.lineWidth = GRID_LINE_WIDTH;
-            for(var i = 0; i < this.xLength() + 2; i++) {
-                for(var j = 0; j < this.yLength() + 2; j++) {
-                    var x = Math.floor(i * w + start_x);
-                    var y = Math.floor((j+1) * h + start_y);
-
-                    var vX = Math.ceil(this.velocity(X_DIM, i, j)*1000);
-                    var vY = Math.ceil(this.velocity(Y_DIM, j, j)*1000);
-
-                    ctx.beginPath();
-                    ctx.moveTo(x, y);
-                    ctx.lineTo(x+vX, y+vY);
-                    ctx.stroke();
-                }
-            }
+	    this.renderVels(ctx);
         }
         // Display tooltips
         if(this.ui.show_stats) {
