@@ -208,6 +208,33 @@ function Grid(N, size, ui) {
 
     }
 
+    this.renderGrid = function(ctx) {
+        var w = Math.floor(this.len_cells[X_DIM]);
+        var h = Math.floor(this.len_cells[Y_DIM]);
+        var start_x = (this.ui.width - w*(this.xLength() + 2)) / 2;
+        var start_y = (this.ui.height - h*(this.yLength() + 2)) / 2;
+
+        ctx.strokeStyle = GRID_COLOR;
+        ctx.lineWidth = GRID_LINE_WIDTH;
+        // draw the x axis lines
+        for(var i=0; i<this.xLength()+2+1; i++) {
+            ctx.beginPath();
+            var x = Math.floor(i * w + start_x);
+            ctx.moveTo(x, start_y);
+            ctx.lineTo(x, this.ui.height - start_y);
+            ctx.stroke();
+        }
+        // draw the y axis lines
+        for(var i=0; i<this.yLength()+2+1; i++) {
+            ctx.beginPath();
+            var y = Math.floor(i * h + start_y);
+            ctx.moveTo(start_x, y);
+            ctx.lineTo(this.ui.width - start_x, y);
+            ctx.stroke();
+        }
+	
+    }
+
     // Render a 2D representation of this Grid. Only works for 2D setup.
     this.render2D = function(ctx) {
         ctx.clearRect(0, 0, this.size[X_DIM], this.size[Y_DIM]);
@@ -245,24 +272,7 @@ function Grid(N, size, ui) {
         }
         // if option is enabled, draw the grid
         if(this.ui.show_grid) {
-            ctx.strokeStyle = GRID_COLOR;
-            ctx.lineWidth = GRID_LINE_WIDTH;
-            // draw the x axis lines
-            for(var i=0; i<this.xLength()+2+1; i++) {
-                ctx.beginPath();
-                var x = Math.floor(i * w + start_x);
-                ctx.moveTo(x, start_y);
-                ctx.lineTo(x, this.ui.height - start_y);
-                ctx.stroke();
-            }
-            // draw the y axis lines
-            for(var i=0; i<this.yLength()+2+1; i++) {
-                ctx.beginPath();
-                var y = Math.floor(i * h + start_y);
-                ctx.moveTo(start_x, y);
-                ctx.lineTo(this.ui.width - start_x, y);
-                ctx.stroke();
-            }
+	    this.renderGrid(ctx);
         }
 
 	// Fill in the solid cells
