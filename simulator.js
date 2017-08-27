@@ -130,8 +130,8 @@ function Simulator(ui) {
             }
         }
         this.setBoundary(vel[X_DIM], BOUNDARY_OPPOSE_X);
-        //this.setBoundary(vel[Y_DIM], BOUNDARY_OPPOSE_Y);
-	this.setBoundaryOpposeY(vel[Y_DIM]); //, BOUNDARY_OPPOSE_Y);
+        this.setBoundary(vel[Y_DIM], BOUNDARY_OPPOSE_Y);
+	//this.setBoundaryOpposeY(vel[Y_DIM]); //, BOUNDARY_OPPOSE_Y);
     }
 
     // Sets the values of X on the boundary cells (inactive in the actual
@@ -144,6 +144,18 @@ function Simulator(ui) {
     //  BOUNDARY_OPPOSE_Y => the top and bottom edges will have inverse
     //      values of the closest inner neighbors.
     this.setBoundary = function(X, mode) {
+	if (mode == BOUNDARY_OPPOSE_Y) {
+
+	    this.setBoundaryOpposeY(X);
+	    return;
+	}
+
+	if (mode == BOUNDARY_OPPOSE_X) {
+
+	    this.setBoundaryOpposeY(X);
+	    return;
+	}
+	
         // index 1 and "last" are the endpoints of the active grid
         var lastX = this.grid.N[X_DIM];
         var lastY = this.grid.N[Y_DIM];
