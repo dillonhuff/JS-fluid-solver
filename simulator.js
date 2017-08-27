@@ -155,6 +155,10 @@ function Simulator(ui) {
 	    this.setBoundaryOpposeX(X);
 	    return;
 	}
+
+	if (mode != BOUNDARY_MIRROR) {
+	    alert('Bad boundary value mode = ' + mode);
+	}
 	
         // index 1 and "last" are the endpoints of the active grid
         var lastX = this.grid.N[X_DIM];
