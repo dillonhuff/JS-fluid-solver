@@ -156,10 +156,16 @@ function Simulator(ui) {
 	    return;
 	}
 
-	if (mode != BOUNDARY_MIRROR) {
-	    alert('Bad boundary value mode = ' + mode);
+	if (mode == BOUNDARY_MIRROR) {
+	    this.setBoundaryMirror(X);
+	    return;
 	}
+
+	alert('Bad boundary value mode = ' + mode);
 	
+    }
+
+    this.setBoundaryMirror = function(X) {
         // index 1 and "last" are the endpoints of the active grid
         var lastX = this.grid.N[X_DIM];
         var lastY = this.grid.N[Y_DIM];
@@ -181,8 +187,10 @@ function Simulator(ui) {
         setElem(X, 0, edgeY,     0.5*(elem(X, 1, edgeY) + elem(X, 0, lastY)));
         setElem(X, edgeX, 0,     0.5*(elem(X, lastX, 0) + elem(X, edgeX, 1)));
         setElem(X, edgeX, edgeY, 0.5*(elem(X, lastX, edgeY) + elem(X, edgeX, lastY)));
+
     }
 
+    
     this.setBoundaryOpposeX = function(X) {
         // index 1 and "last" are the endpoints of the active grid
         var lastX = this.grid.N[X_DIM];
