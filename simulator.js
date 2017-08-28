@@ -168,23 +168,13 @@ function Simulator(ui) {
         var edgeY = lastY + 1;
         // update left and right edges
         for(var j=1; j<=lastY; j++) {
-            if(mode == BOUNDARY_OPPOSE_X) {
-                setElem(X, 0, j, -elem(X, 1, j));
-                setElem(X, edgeX, j, -elem(X, lastX, j));
-            } else {
-                setElem(X, 0, j, elem(X, 1, j));
-                setElem(X, edgeX, j, elem(X, lastX, j));
-            }
+            setElem(X, 0, j, elem(X, 1, j));
+            setElem(X, edgeX, j, elem(X, lastX, j));
         }
         // update top and bottom edges
         for(var i=1; i<=lastX; i++) {
-            if(mode == BOUNDARY_OPPOSE_Y) {
-                setElem(X, i, 0, -elem(X, i, 1));
-                setElem(X, i, edgeY, -elem(X, i, lastY));
-            } else {
-                setElem(X, i, 0, elem(X, i, 1));
-                setElem(X, i, edgeY, elem(X, i, lastY));
-            }
+            setElem(X, i, 0, elem(X, i, 1));
+            setElem(X, i, edgeY, elem(X, i, lastY));
         }
         // update corners to be averages of their nearest edge neighbors
 	setElem(X, 0, 0,         0.5*(elem(X, 1, 0) + elem(X, 0, 1)));
