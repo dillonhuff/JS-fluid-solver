@@ -54,3 +54,11 @@ function subElem3(X, dim, i, j, val) {
     //X[dim][i][j][1] -= val;
     X[dim][i][j] -= val;
 }
+
+function xDim(X) {
+    return X.length - 2;
+}
+
+function yDim(X) {
+    return X[0].length - 2;
+}

@@ -27,8 +27,11 @@ function Simulator(ui) {
     this.addSource = function(dest, source) {
 
 
-        for(var i=0; i<this.grid.N[X_DIM]+2; i++) {
-            for(var j=0; j<this.grid.N[Y_DIM]+2; j++) {
+        // for(var i = 0; i < this.grid.N[X_DIM] + 2; i++) {
+        //     for(var j = 0; j < this.grid.N[Y_DIM] + 2; j++) {
+        for(var i = 0; i < xDim(dest) + 2; i++) {
+            for(var j = 0; j < yDim(dest); j++) {
+
 		dest[i][j] += this.timeStep * source[i][j];
 	    }
 	}
