@@ -46,9 +46,6 @@ function Simulator(ui) {
         //var a = this.timeStep * k * this.grid.N[X_DIM] * this.grid.N[Y_DIM];
         var a = this.timeStep * k * Math.sqrt(this.ui.width * this.ui.height);
         for(var iter=0; iter<this.ui.solver_iters; iter++) {
-            // for(var i=1; i<=this.grid.N[X_DIM]; i++) {
-            //     for(var j=1; j<=this.grid.N[Y_DIM]; j++) {
-
             for(var i = 1; i <= xDim(cur); i++) {
                 for(var j = 1; j <= yDim(cur); j++) {
 
@@ -68,8 +65,13 @@ function Simulator(ui) {
     this.advect = function(cur, prev, vel, bMode) {
         var lX = this.grid.len_cells[X_DIM];
         var lY = this.grid.len_cells[Y_DIM];
-        for(var i=1; i<=this.grid.N[X_DIM]; i++) {
-            for(var j=1; j<=this.grid.N[Y_DIM]; j++) {
+
+        // for(var i=1; i<=this.grid.N[X_DIM]; i++) {
+        //     for(var j=1; j<=this.grid.N[Y_DIM]; j++) {
+
+	for(var i = 1; i <= xDim(cur); i++) {
+            for(var j = 1; j <= yDim(cur); j++) {
+        		
                 // get resulting x coordinate cell after backtracking by vel
                 var start_x = i * lX;
                 var end_x = start_x - this.timeStep * elem3(vel, X_DIM, i, j);
