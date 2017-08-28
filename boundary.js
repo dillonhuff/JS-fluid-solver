@@ -87,3 +87,34 @@ this.setBoundaryOpposeY = function(X) {
     setElem(X, edgeX, edgeY, 0.5*(elem(X, lastX, edgeY) + elem(X, edgeX, lastY)));
 }
 
+// Sets the values of X on the boundary cells (inactive in the actual
+// simulation visualization) to the appropriate values based on mode.
+// mode:
+//  BOUNDARY_MIRROR   => all border values will be copied from the
+//      closest inner neighboring cell.
+//  BOUNDARY_OPPOSE_X => the left and right edges will have inverse
+//      values of the closest inner neighors.
+//  BOUNDARY_OPPOSE_Y => the top and bottom edges will have inverse
+//      values of the closest inner neighbors.
+setBoundary = function(X, mode) {
+    if (mode == BOUNDARY_OPPOSE_Y) {
+
+	setBoundaryOpposeY(X);
+	return;
+    }
+
+    if (mode == BOUNDARY_OPPOSE_X) {
+
+	setBoundaryOpposeX(X);
+	return;
+    }
+
+    if (mode == BOUNDARY_MIRROR) {
+	setBoundaryMirror(X);
+	return;
+    }
+
+    alert('Bad boundary value mode = ' + mode);
+    
+}
+

@@ -51,7 +51,7 @@ function Simulator(ui) {
 				       ) / (1 + 4*a))
                 }
             }
-            this.setBoundary(cur, bMode);
+            setBoundary(cur, bMode);
         }
     }
 
@@ -93,7 +93,7 @@ function Simulator(ui) {
 
 	    }
         }
-        this.setBoundary(cur, bMode);
+        setBoundary(cur, bMode);
     }
 
     // Project step forces velocities to be mass-conserving.
@@ -109,8 +109,8 @@ function Simulator(ui) {
 		setElem(p, i, j, 0);
             }
         }
-        this.setBoundary(div, BOUNDARY_MIRROR);
-        this.setBoundary(p, BOUNDARY_MIRROR);
+        setBoundary(div, BOUNDARY_MIRROR);
+        setBoundary(p, BOUNDARY_MIRROR);
         // TODO - move to a separate function (shared w/ diffuse)
         for(var iter = 0; iter < this.ui.solver_iters; iter++) {
             for(var i = 1; i <= this.grid.N[X_DIM]; i++) {
@@ -121,7 +121,7 @@ function Simulator(ui) {
                                      ) / 4);
                 }
             }
-            this.setBoundary(p, BOUNDARY_MIRROR);
+            setBoundary(p, BOUNDARY_MIRROR);
         }
         for(var i=1; i<=this.grid.N[X_DIM]; i++) {
             for(var j=1; j<=this.grid.N[Y_DIM]; j++) {
@@ -129,40 +129,9 @@ function Simulator(ui) {
 		subElem3(vel, Y_DIM, i, j, 0.5*(elem(p, i, j+1) - elem(p, i, j-1)) / Ly);
             }
         }
-        this.setBoundary(vel[X_DIM], BOUNDARY_OPPOSE_X);
-        this.setBoundary(vel[Y_DIM], BOUNDARY_OPPOSE_Y);
-	//this.setBoundaryOpposeY(vel[Y_DIM]); //, BOUNDARY_OPPOSE_Y);
-    }
-
-    // Sets the values of X on the boundary cells (inactive in the actual
-    // simulation visualization) to the appropriate values based on mode.
-    // mode:
-    //  BOUNDARY_MIRROR   => all border values will be copied from the
-    //      closest inner neighboring cell.
-    //  BOUNDARY_OPPOSE_X => the left and right edges will have inverse
-    //      values of the closest inner neighors.
-    //  BOUNDARY_OPPOSE_Y => the top and bottom edges will have inverse
-    //      values of the closest inner neighbors.
-    this.setBoundary = function(X, mode) {
-	if (mode == BOUNDARY_OPPOSE_Y) {
-
-	    setBoundaryOpposeY(X);
-	    return;
-	}
-
-	if (mode == BOUNDARY_OPPOSE_X) {
-
-	    setBoundaryOpposeX(X);
-	    return;
-	}
-
-	if (mode == BOUNDARY_MIRROR) {
-	    setBoundaryMirror(X);
-	    return;
-	}
-
-	alert('Bad boundary value mode = ' + mode);
-	
+        setBoundary(vel[X_DIM], BOUNDARY_OPPOSE_X);
+        setBoundary(vel[Y_DIM], BOUNDARY_OPPOSE_Y);
+	//setBoundaryOpposeY(vel[Y_DIM]); //, BOUNDARY_OPPOSE_Y);
     }
 
     // Does one velocity field update.
