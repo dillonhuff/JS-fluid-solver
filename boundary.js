@@ -1,7 +1,4 @@
 this.setBoundaryMirror = function(X) {
-    // index 1 and "last" are the endpoints of the active grid
-    // var lastX = this.grid.N[X_DIM];
-    // var lastY = this.grid.N[Y_DIM];
 
     var lastX = X.length - 2;
     var lastY = X[0].length - 2;

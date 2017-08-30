@@ -9,6 +9,7 @@ BOUNDARY_OPPOSE_X = 1;
 BOUNDARY_OPPOSE_Y = 2;
 
 
+
 /* The Simulator object provides an API for running the simulation using
  * the resources made available by the Grid data structure.
  * Parameters:
@@ -21,15 +22,14 @@ function Simulator(ui) {
     // TODO - change ui.___ to getter functions.
     this.grid = new Grid([this.ui.grid_cols, this.ui.grid_rows],
                          [this.ui.width, this.ui.height], ui);
+
     // To each element of array dest adds the respective element of the
     // source (also an array) multiplied by the time step.
     // Use to add source arrays for velocity and density.
     this.addSource = function(dest, source) {
-
-
-        // for(var i = 0; i < this.grid.N[X_DIM] + 2; i++) {
-        //     for(var j = 0; j < this.grid.N[Y_DIM] + 2; j++) {
-        for(var i = 0; i < xDim(dest) + 2; i++) {
+	// for(var i = 0; i < this.grid.N[X_DIM] + 2; i++) {
+	//     for(var j = 0; j < this.grid.N[Y_DIM] + 2; j++) {
+	for(var i = 0; i < xDim(dest) + 2; i++) {
             for(var j = 0; j < yDim(dest); j++) {
 
 		dest[i][j] += this.timeStep * source[i][j];
@@ -148,7 +148,11 @@ function Simulator(ui) {
         for(var dim = 0; dim < N_DIMS; dim++) {
             this.addSource(this.grid.vel[dim], this.grid.prev_vel[dim]);
             this.addSource(this.grid.vel[dim], this.grid.src_vel[dim]);
-        }
+
+            // addSource(this.grid.vel[dim], this.grid.prev_vel[dim]);
+            // addSource(this.grid.vel[dim], this.grid.src_vel[dim]);
+
+	}
 
 	this.grid.swapV();
 
@@ -168,10 +172,13 @@ function Simulator(ui) {
 
     // Does one scalar field update.
     this.dStep = function() {
-        //if(keep_prev)
         this.addSource(this.grid.dens, this.grid.prev_dens);
         this.addSource(this.grid.dens, this.grid.src_dens);
-        this.grid.swapD();
+
+        // addSource(this.grid.dens, this.grid.prev_dens);
+        // addSource(this.grid.dens, this.grid.src_dens);
+
+	this.grid.swapD();
         this.diffuse(this.grid.dens, this.grid.prev_dens,
                      this.ui.diff, BOUNDARY_MIRROR);
         this.grid.swapD();
