@@ -63,6 +63,9 @@ function yDim(X) {
     return X[0].length - 2;
 }
 
+// To each element of array dest adds the respective element of the
+// source (also an array) multiplied by the time step.
+// Use to add source arrays for velocity and density.
 function addSource(timeStep, dest, source) {
     for(var i = 0; i < xDim(dest) + 2; i++) {
         for(var j = 0; j < yDim(dest); j++) {

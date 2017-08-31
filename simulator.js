@@ -22,13 +22,6 @@ function Simulator(ui) {
     this.grid = new Grid([this.ui.grid_cols, this.ui.grid_rows],
                          [this.ui.width, this.ui.height], ui);
 
-    // To each element of array dest adds the respective element of the
-    // source (also an array) multiplied by the time step.
-    // Use to add source arrays for velocity and density.
-    this.addSource = function(dest, source) {
-	addSource(this.timeStep, dest, source);
-    }
-
     // Sets the values of vector cur to the "diffused" values.
     // That is, the values of cur "leak in" to and "leak out" of all
     // neighboring cells.
@@ -57,9 +50,6 @@ function Simulator(ui) {
     this.advect = function(cur, prev, vel, bMode) {
         var lX = this.grid.len_cells[X_DIM];
         var lY = this.grid.len_cells[Y_DIM];
-
-        // for(var i=1; i<=this.grid.N[X_DIM]; i++) {
-        //     for(var j=1; j<=this.grid.N[Y_DIM]; j++) {
 
 	for(var i = 1; i <= xDim(cur); i++) {
             for(var j = 1; j <= yDim(cur); j++) {
@@ -138,11 +128,9 @@ function Simulator(ui) {
     // Does one velocity field update.
     this.vStep = function() {
         for(var dim = 0; dim < N_DIMS; dim++) {
-            this.addSource(this.grid.vel[dim], this.grid.prev_vel[dim]);
-            this.addSource(this.grid.vel[dim], this.grid.src_vel[dim]);
 
-            // addSource(this.grid.vel[dim], this.grid.prev_vel[dim]);
-            // addSource(this.grid.vel[dim], this.grid.src_vel[dim]);
+            addSource(this.timeStep, this.grid.vel[dim], this.grid.prev_vel[dim]);
+            addSource(this.timeStep, this.grid.vel[dim], this.grid.src_vel[dim]);
 
 	}
 
@@ -153,7 +141,7 @@ function Simulator(ui) {
                          this.ui.visc, dim+1); // TODO - boundary dim
 	}
 
-        //this.project(this.grid.vel, this.grid.prev_vel);
+        this.project(this.grid.vel, this.grid.prev_vel);
         this.grid.swapV();
         for(var dim = 0; dim < N_DIMS; dim++) {
             this.advect(this.grid.vel[dim], this.grid.prev_vel[dim],
@@ -164,11 +152,9 @@ function Simulator(ui) {
 
     // Does one scalar field update.
     this.dStep = function() {
-        this.addSource(this.grid.dens, this.grid.prev_dens);
-        this.addSource(this.grid.dens, this.grid.src_dens);
 
-        // addSource(this.grid.dens, this.grid.prev_dens);
-        // addSource(this.grid.dens, this.grid.src_dens);
+        addSource(this.timeStep, this.grid.dens, this.grid.prev_dens);
+        addSource(this.timeStep, this.grid.dens, this.grid.src_dens);
 
 	this.grid.swapD();
         this.diffuse(this.grid.dens, this.grid.prev_dens,
