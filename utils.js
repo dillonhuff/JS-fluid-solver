@@ -63,3 +63,12 @@ function yDim(X) {
     return X[0].length - 2;
 }
 
+function addSource(timeStep, dest, source) {
+    for(var i = 0; i < xDim(dest) + 2; i++) {
+        for(var j = 0; j < yDim(dest); j++) {
+	    dest[i][j] += timeStep * source[i][j];
+	}
+    }
+}
+
+

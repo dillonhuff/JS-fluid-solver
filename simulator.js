@@ -9,15 +9,6 @@ BOUNDARY_OPPOSE_X = 1;
 BOUNDARY_OPPOSE_Y = 2;
 
 
-function addSource(dest, source) {
-    for(var i = 0; i < xDim(dest) + 2; i++) {
-        for(var j = 0; j < yDim(dest); j++) {
-	    dest[i][j] += this.timeStep * source[i][j];
-	}
-    }
-}
-
-
 /* The Simulator object provides an API for running the simulation using
  * the resources made available by the Grid data structure.
  * Parameters:
@@ -35,12 +26,7 @@ function Simulator(ui) {
     // source (also an array) multiplied by the time step.
     // Use to add source arrays for velocity and density.
     this.addSource = function(dest, source) {
-	for(var i = 0; i < xDim(dest) + 2; i++) {
-            for(var j = 0; j < yDim(dest); j++) {
-
-		dest[i][j] += this.timeStep * source[i][j];
-	    }
-	}
+	addSource(this.timeStep, dest, source);
     }
 
     // Sets the values of vector cur to the "diffused" values.
