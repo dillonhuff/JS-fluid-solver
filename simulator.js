@@ -122,7 +122,6 @@ function Simulator(ui) {
         }
         setBoundary(vel[X_DIM], BOUNDARY_OPPOSE_X);
         setBoundary(vel[Y_DIM], BOUNDARY_OPPOSE_Y);
-	//setBoundaryOpposeY(vel[Y_DIM]); //, BOUNDARY_OPPOSE_Y);
     }
 
     // Does one velocity field update.
@@ -147,6 +146,7 @@ function Simulator(ui) {
             this.advect(this.grid.vel[dim], this.grid.prev_vel[dim],
                         this.grid.vel, dim+1); // TODO - boundary dim
 	}
+
         this.project(this.grid.vel, this.grid.prev_vel);
     }
 
@@ -201,11 +201,6 @@ function Simulator(ui) {
         for(var i=0; i<this.grid.N[X_DIM]+2; i++) {
             for(var j=0; j<this.grid.N[Y_DIM]+2; j++) {
 		this.grid.src_vel[Y_DIM][i][j] = g;
-
-		// Is this dimension ever needed?
-                // for(var k=0; k<this.grid.N[Z_DIM]+2; k++) {
-                //     this.grid.src_vel[Y_DIM][i][j][k] = g;
-		// }
 	    }
 	}
     }

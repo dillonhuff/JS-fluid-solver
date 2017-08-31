@@ -235,11 +235,8 @@ function Grid(N, size, ui) {
 	
     }
 
-    // Render a 2D representation of this Grid. Only works for 2D setup.
-    this.render2D = function(ctx) {
-        ctx.clearRect(0, 0, this.size[X_DIM], this.size[Y_DIM]);
-        ctx.save();
-        // draw the densities
+    this.drawDensities = function(ctx) {
+
         var total_dens = 0;
 
         var w = Math.floor(this.len_cells[X_DIM]);
@@ -267,6 +264,16 @@ function Grid(N, size, ui) {
                 }
             }
         }
+
+    }
+
+    // Render a 2D representation of this Grid. Only works for 2D setup.
+    this.render2D = function(ctx) {
+        ctx.clearRect(0, 0, this.size[X_DIM], this.size[Y_DIM]);
+        ctx.save();
+        // draw the densities
+	this.drawDensities(ctx);
+
         // if option is enabled, draw the grid
         if(this.ui.show_grid) {
 	    this.renderGrid(ctx);
