@@ -68,27 +68,22 @@ function Grid(N, size, ui) {
     this.src_dens = this.generateDensArray();
 
     this.velocity = function(dim, i, j) {
-	//return this.vel[dim][i][j][1];
 	return this.vel[dim][i][j];
     }
 
     this.setVelocity = function(dim, i, j, val) {
-	//return this.vel[dim][i][j][1] = val;
 	return this.vel[dim][i][j] = val;
     }
 
     this.setSrcVel = function(dim, i, j, val) {
-	//return this.vel[dim][i][j][1] = val;
 	return this.src_vel[dim][i][j] = val;
     }
     
     this.density = function(i, j) {
-	//return this.dens[i][j][1];
 	return this.dens[i][j];
     }
 
     this.setDensity = function(i, j, val) {
-	//return this.dens[i][j][1] = val;
 	return this.dens[i][j] = val;
     }
     
@@ -96,14 +91,14 @@ function Grid(N, size, ui) {
     this.clearArrays = function(v, d) {
         for(var i = 0; i < (this.xLength() + 2); i++) {
             for(var j = 0; j < (this.yLength() + 2); j++) {
-                //for(var k=0; k<(this.N[Z_DIM]+2); k++) {
+
                 for(var dim = 0; dim < 2; dim++) {
-                    //v[dim][i][j][k] = 0;
+
 		    v[dim][i][j] = 0;
 		}
-                //d[i][j][k] = 0;
+
 		d[i][j] = 0;
-                //}
+
             }
         }
     }
