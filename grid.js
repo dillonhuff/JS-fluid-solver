@@ -274,6 +274,11 @@ function Grid(N, size, ui) {
         // draw the densities
 	this.drawDensities(ctx);
 
+        var w = Math.floor(this.len_cells[X_DIM]);
+        var h = Math.floor(this.len_cells[Y_DIM]);
+        var start_x = (this.ui.width - w*(this.xLength() + 2)) / 2;
+        var start_y = (this.ui.height - h*(this.yLength() + 2)) / 2;
+	
         // if option is enabled, draw the grid
         if(this.ui.show_grid) {
 	    this.renderGrid(ctx);
