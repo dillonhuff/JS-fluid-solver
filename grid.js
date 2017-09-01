@@ -235,7 +235,7 @@ function Grid(N, size, ui) {
 	
     }
 
-    this.drawDensities = function(ctx) {
+    this.drawDensities = function(ctx, densArr) {
 
         var total_dens = 0;
 
@@ -243,9 +243,10 @@ function Grid(N, size, ui) {
         var h = Math.floor(this.len_cells[Y_DIM]);
         var start_x = (this.ui.width - w*(this.xLength() + 2)) / 2;
         var start_y = (this.ui.height - h*(this.yLength() + 2)) / 2;
+
         for(var i = 0; i < this.xLength() + 2; i++) {
             for(var j = 0; j < this.yLength() + 2; j++) {
-		var dens = this.density(i, j);
+		var dens = densArr[i][j]; //elem(densArr, i, j); //this.density(i, j);
 
                 total_dens += dens;
                 if(dens > 0) {
@@ -272,7 +273,7 @@ function Grid(N, size, ui) {
         ctx.clearRect(0, 0, this.size[X_DIM], this.size[Y_DIM]);
         ctx.save();
         // draw the densities
-	this.drawDensities(ctx);
+	this.drawDensities(ctx, this.vel[X_DIM]);//this.dens);
 
         var w = Math.floor(this.len_cells[X_DIM]);
         var h = Math.floor(this.len_cells[Y_DIM]);
