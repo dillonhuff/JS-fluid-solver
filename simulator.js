@@ -120,8 +120,8 @@ function Simulator(ui) {
 		subElem3(vel, Y_DIM, i, j, 0.5*(elem(p, i, j+1) - elem(p, i, j-1)) / Ly);
             }
         }
-        setBoundary(vel[X_DIM], BOUNDARY_OPPOSE_X);
-        setBoundary(vel[Y_DIM], BOUNDARY_OPPOSE_Y);
+
+	setVelBoundary(vel);
     }
 
     // Does one velocity field update.

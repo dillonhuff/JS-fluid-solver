@@ -1,4 +1,4 @@
-this.setBoundaryMirror = function(X) {
+setBoundaryMirror = function(X) {
 
     var lastX = X.length - 2;
     var lastY = X[0].length - 2;
@@ -27,7 +27,7 @@ this.setBoundaryMirror = function(X) {
 }
 
 
-this.setBoundaryOpposeX = function(X) {
+setBoundaryOpposeX = function(X) {
     // index 1 and "last" are the endpoints of the active grid
     // var lastX = this.grid.N[X_DIM];
     // var lastY = this.grid.N[Y_DIM];
@@ -56,7 +56,7 @@ this.setBoundaryOpposeX = function(X) {
     setElem(X, edgeX, edgeY, 0.5*(elem(X, lastX, edgeY) + elem(X, edgeX, lastY)));
 }
 
-this.setBoundaryOpposeY = function(X) {
+setBoundaryOpposeY = function(X) {
     // index 1 and "last" are the endpoints of the active grid
     // var lastX = this.grid.N[X_DIM];
     // var lastY = this.grid.N[Y_DIM];
@@ -115,3 +115,8 @@ setBoundary = function(X, mode) {
     
 }
 
+
+function setVelBoundary(vel) {
+        setBoundary(vel[X_DIM], BOUNDARY_OPPOSE_X);
+        setBoundary(vel[Y_DIM], BOUNDARY_OPPOSE_Y);
+}
