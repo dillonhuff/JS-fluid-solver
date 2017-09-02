@@ -93,7 +93,7 @@ setBoundaryOpposeY = function(X) {
 //      values of the closest inner neighors.
 //  BOUNDARY_OPPOSE_Y => the top and bottom edges will have inverse
 //      values of the closest inner neighbors.
-setBoundary = function(X, mode) {
+function setBoundary(X, mode) {
     if (mode == BOUNDARY_OPPOSE_Y) {
 
 	setBoundaryOpposeY(X);
@@ -112,7 +112,6 @@ setBoundary = function(X, mode) {
     }
 
     alert('Bad boundary value mode = ' + mode);
-    
 }
 
 

@@ -32,7 +32,8 @@ function Simulator(ui) {
     // neighboring cells.
     // k is the diffusion constant (diff or visc, depending)
     // bMode is the boundary mode for setBoundary().
-    this.diffuse = function(cur, prev, k, bMode) {
+    //this.diffuse = function(cur, prev, k, bMode) {
+    this.diffuse = function(cur, prev, k, boundaryCondition) {
         //var a = this.timeStep * k * this.grid.N[X_DIM] * this.grid.N[Y_DIM];
         var a = this.timeStep * k * Math.sqrt(this.ui.width * this.ui.height);
         for(var iter=0; iter<this.ui.solver_iters; iter++) {
@@ -45,7 +46,8 @@ function Simulator(ui) {
 				       ) / (1 + 4*a))
                 }
             }
-            setBoundary(cur, bMode);
+            //setBoundary(cur, bMode);
+	    boundaryCondition(cur);
         }
     }
 
@@ -141,8 +143,16 @@ function Simulator(ui) {
 	this.grid.swapV();
 
 	for(var dim = 0; dim < N_DIMS; dim++) {
-            this.diffuse(this.grid.vel[dim], this.grid.prev_vel[dim],
-                         this.ui.visc, dim+1); // TODO - boundary dim
+	    if (dim == X_DIM) {
+		this.diffuse(this.grid.vel[dim], this.grid.prev_vel[dim],
+                             this.ui.visc, setBoundaryOpposeX);
+	    } else if (dim == Y_DIM) {
+		this.diffuse(this.grid.vel[dim], this.grid.prev_vel[dim],
+                             this.ui.visc, setBoundaryOpposeY);
+		
+	    } else {
+		alert('BAD BC in vSTep');
+	    } //dim+1); // TODO - boundary dim
 	}
 
         this.project(this.grid.vel, this.grid.prev_vel);
@@ -163,7 +173,7 @@ function Simulator(ui) {
 
 	this.grid.swapD();
         this.diffuse(this.grid.dens, this.grid.prev_dens,
-                     this.ui.diff, BOUNDARY_MIRROR);
+                     this.ui.diff, setBoundaryMirror); //BOUNDARY_MIRROR);
         this.grid.swapD();
         this.advect(this.grid.dens, this.grid.prev_dens,
                     this.grid.vel, BOUNDARY_MIRROR);
