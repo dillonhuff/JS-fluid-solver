@@ -22,6 +22,11 @@ function Simulator(ui) {
     this.grid = new Grid([this.ui.grid_cols, this.ui.grid_rows],
                          [this.ui.width, this.ui.height], ui);
 
+    // NOTE ON BCS: Maybe boundary conditions should be passed in as a lambda?
+    // This would allow for more flexibility in the use of diffuse, project, and
+    // advect
+
+    
     // Sets the values of vector cur to the "diffused" values.
     // That is, the values of cur "leak in" to and "leak out" of all
     // neighboring cells.

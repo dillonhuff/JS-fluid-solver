@@ -117,6 +117,6 @@ setBoundary = function(X, mode) {
 
 
 function setVelBoundary(vel) {
-        setBoundary(vel[X_DIM], BOUNDARY_OPPOSE_X);
-        setBoundary(vel[Y_DIM], BOUNDARY_OPPOSE_Y);
+    setBoundary(vel[X_DIM], BOUNDARY_OPPOSE_X);
+    setBoundary(vel[Y_DIM], BOUNDARY_OPPOSE_Y);
 }
