@@ -54,7 +54,7 @@ function Simulator(ui) {
     // Sets the fields in cur to be the values of prev flowing in the
     // direction given by velocity vel (a multi-dimensional velocity field).
     // bMode is the boundary mode for setBoundary().
-    this.advect = function(cur, prev, vel, bMode) {
+    this.advect = function(cur, prev, vel, boundaryCondition) {//bMode) {
         var lX = this.grid.len_cells[X_DIM];
         var lY = this.grid.len_cells[Y_DIM];
 
@@ -91,7 +91,7 @@ function Simulator(ui) {
 
 	    }
         }
-        setBoundary(cur, bMode);
+        boundaryCondition(cur);//, bMode);
     }
 
     // Project step forces velocities to be mass-conserving.
@@ -158,8 +158,16 @@ function Simulator(ui) {
         this.project(this.grid.vel, this.grid.prev_vel);
         this.grid.swapV();
         for(var dim = 0; dim < N_DIMS; dim++) {
-            this.advect(this.grid.vel[dim], this.grid.prev_vel[dim],
-                        this.grid.vel, dim+1); // TODO - boundary dim
+	    if (dim == X_DIM) {
+		this.advect(this.grid.vel[dim], this.grid.prev_vel[dim],
+                            this.grid.vel, setBoundaryOpposeX); //dim+1); // TODO - boundary dim
+	    } else if (dim == Y_DIM) {
+		this.advect(this.grid.vel[dim], this.grid.prev_vel[dim],
+                            this.grid.vel, setBoundaryOpposeY); //dim+1); // TODO - boundary dim
+
+	    } else {
+		alert('Bad BC in advect!');
+	    }
 	}
 
         this.project(this.grid.vel, this.grid.prev_vel);
@@ -176,7 +184,7 @@ function Simulator(ui) {
                      this.ui.diff, setBoundaryMirror); //BOUNDARY_MIRROR);
         this.grid.swapD();
         this.advect(this.grid.dens, this.grid.prev_dens,
-                    this.grid.vel, BOUNDARY_MIRROR);
+                    this.grid.vel, setBoundaryMirror); //BOUNDARY_MIRROR);
         
     }
     
