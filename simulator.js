@@ -95,7 +95,8 @@ function Simulator(ui) {
     }
 
     // Project step forces velocities to be mass-conserving.
-    this.project = function(vel, buf) {
+    this.project = function(vel, buf,
+			    pressureBC, velBC) {
         var Lx = 1.0 / this.ui.width;
         var Ly = 1.0 / this.ui.height;
         var p = buf[X_DIM];
@@ -107,9 +108,17 @@ function Simulator(ui) {
 		setElem(p, i, j, 0);
             }
         }
-        setBoundary(div, BOUNDARY_MIRROR);
-        setBoundary(p, BOUNDARY_MIRROR);
-        // TODO - move to a separate function (shared w/ diffuse)
+
+        // setBoundary(div, BOUNDARY_MIRROR);
+        // setBoundary(p, BOUNDARY_MIRROR);
+
+	pressureBC(div);
+	pressureBC(p);
+
+        // setBoundary(div, BOUNDARY_MIRROR);
+        // setBoundary(p, BOUNDARY_MIRROR);
+
+	// TODO - move to a separate function (shared w/ diffuse)
         for(var iter = 0; iter < this.ui.solver_iters; iter++) {
             for(var i = 1; i <= this.grid.N[X_DIM]; i++) {
                 for(var j = 1; j <= this.grid.N[Y_DIM]; j++) {
@@ -119,7 +128,8 @@ function Simulator(ui) {
                                      ) / 4);
                 }
             }
-            setBoundary(p, BOUNDARY_MIRROR);
+            //setBoundary(p, BOUNDARY_MIRROR);
+	    pressureBC(p);
         }
         for(var i=1; i<=this.grid.N[X_DIM]; i++) {
             for(var j=1; j<=this.grid.N[Y_DIM]; j++) {
@@ -128,7 +138,8 @@ function Simulator(ui) {
             }
         }
 
-	setVelBoundary(vel);
+	velBC(vel);
+	//setVelBoundary(vel);
     }
 
     // Does one velocity field update.
@@ -155,22 +166,26 @@ function Simulator(ui) {
 	    }
 	}
 
-        this.project(this.grid.vel, this.grid.prev_vel);
+        this.project(this.grid.vel, this.grid.prev_vel,
+		     setBoundaryMirror, setVelBoundary);
+
         this.grid.swapV();
+
         for(var dim = 0; dim < N_DIMS; dim++) {
 	    if (dim == X_DIM) {
 		this.advect(this.grid.vel[dim], this.grid.prev_vel[dim],
-                            this.grid.vel, setBoundaryOpposeX); //dim+1); // TODO - boundary dim
+                            this.grid.vel, setBoundaryOpposeX);
 	    } else if (dim == Y_DIM) {
 		this.advect(this.grid.vel[dim], this.grid.prev_vel[dim],
-                            this.grid.vel, setBoundaryOpposeY); //dim+1); // TODO - boundary dim
+                            this.grid.vel, setBoundaryOpposeY);
 
 	    } else {
 		alert('Bad BC in advect!');
 	    }
 	}
 
-        this.project(this.grid.vel, this.grid.prev_vel);
+        this.project(this.grid.vel, this.grid.prev_vel,
+		     setBoundaryMirror, setVelBoundary);
     }
 
     // Does one scalar field update.
