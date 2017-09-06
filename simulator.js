@@ -152,7 +152,7 @@ function Simulator(ui) {
 		
 	    } else {
 		alert('BAD BC in vSTep');
-	    } //dim+1); // TODO - boundary dim
+	    }
 	}
 
         this.project(this.grid.vel, this.grid.prev_vel);
