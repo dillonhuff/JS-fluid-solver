@@ -120,7 +120,7 @@ function setVelBoundary(vel) {
     setBoundary(vel[Y_DIM], BOUNDARY_OPPOSE_Y);
 }
 
-function setBoundaryYWrap(yVel) {
+function setBoundaryYWrap(X) {
     // index 1 and "last" are the endpoints of the active grid
     // var lastX = this.grid.N[X_DIM];
     // var lastY = this.grid.N[Y_DIM];

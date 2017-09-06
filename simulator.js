@@ -159,7 +159,7 @@ function Simulator(ui) {
                              this.ui.visc, setBoundaryOpposeX);
 	    } else if (dim == Y_DIM) {
 		this.diffuse(this.grid.vel[dim], this.grid.prev_vel[dim],
-                             this.ui.visc, setBoundaryOpposeY);
+                             this.ui.visc, setBoundaryYWrap);//setBoundaryOpposeY);
 		
 	    } else {
 		alert('BAD BC in vSTep');
@@ -167,7 +167,7 @@ function Simulator(ui) {
 	}
 
         this.project(this.grid.vel, this.grid.prev_vel,
-		     setBoundaryMirror, setVelBoundary);
+		     setBoundaryMirror, setVelBoundaryWrapY);
 
         this.grid.swapV();
 
@@ -177,7 +177,7 @@ function Simulator(ui) {
                             this.grid.vel, setBoundaryOpposeX);
 	    } else if (dim == Y_DIM) {
 		this.advect(this.grid.vel[dim], this.grid.prev_vel[dim],
-                            this.grid.vel, setBoundaryOpposeY);
+                            this.grid.vel, setBoundaryYWrap);//setBoundaryOpposeY);
 
 	    } else {
 		alert('Bad BC in advect!');
@@ -185,7 +185,7 @@ function Simulator(ui) {
 	}
 
         this.project(this.grid.vel, this.grid.prev_vel,
-		     setBoundaryMirror, setVelBoundary);
+		     setBoundaryMirror, setVelBoundaryWrapY);
     }
 
     // Does one scalar field update.
