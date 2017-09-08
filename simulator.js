@@ -133,8 +133,8 @@ function Simulator(ui) {
         }
         for(var i=1; i<=this.grid.N[X_DIM]; i++) {
             for(var j=1; j<=this.grid.N[Y_DIM]; j++) {
-		subElem3(vel, X_DIM, i, j, 0.5*(elem(p, i+1, j) - elem(p, i-1, j)) / Lx);
-		subElem3(vel, Y_DIM, i, j, 0.5*(elem(p, i, j+1) - elem(p, i, j-1)) / Ly);
+		subElem3(vel, X_DIM, i, j, 0.5*(elem(p, i + 1, j) - elem(p, i-1, j)) / Lx);
+		subElem3(vel, Y_DIM, i, j, 0.5*(elem(p, i, j + 1) - elem(p, i, j-1)) / Ly);
             }
         }
 
@@ -159,7 +159,7 @@ function Simulator(ui) {
                              this.ui.visc, setBoundaryOpposeX);
 	    } else if (dim == Y_DIM) {
 		this.diffuse(this.grid.vel[dim], this.grid.prev_vel[dim],
-                             this.ui.visc, setBoundaryYWrap);//setBoundaryOpposeY);
+                             this.ui.visc, setBoundaryOpposeY);
 		
 	    } else {
 		alert('BAD BC in vSTep');
@@ -177,7 +177,7 @@ function Simulator(ui) {
                             this.grid.vel, setBoundaryOpposeX);
 	    } else if (dim == Y_DIM) {
 		this.advect(this.grid.vel[dim], this.grid.prev_vel[dim],
-                            this.grid.vel, setBoundaryYWrap);//setBoundaryOpposeY);
+                            this.grid.vel, setBoundaryOpposeY);
 
 	    } else {
 		alert('Bad BC in advect!');
@@ -196,10 +196,10 @@ function Simulator(ui) {
 
 	this.grid.swapD();
         this.diffuse(this.grid.dens, this.grid.prev_dens,
-                     this.ui.diff, setBoundaryMirror); //BOUNDARY_MIRROR);
+                     this.ui.diff, setBoundaryYWrap); //setBoundaryMirror); //BOUNDARY_MIRROR);
         this.grid.swapD();
         this.advect(this.grid.dens, this.grid.prev_dens,
-                    this.grid.vel, setBoundaryMirror); //BOUNDARY_MIRROR);
+                    this.grid.vel, setBoundaryYWrap); //setBoundaryMirror); //BOUNDARY_MIRROR);
         
     }
     

@@ -139,7 +139,7 @@ function setBoundaryYWrap(X) {
     // update top and bottom edges
     for(var i=1; i<=lastX; i++) {
         setElem(X, i, 0, elem(X, i, lastY));
-        setElem(X, i, edgeY, elem(X, i, 0));
+        setElem(X, i, lastY, elem(X, i, 0));
     }
     // update corners to be averages of their nearest edge neighbors
     setElem(X, 0, 0,         0.5*(elem(X, 1, 0) + elem(X, 0, 1)));
@@ -152,8 +152,4 @@ function setBoundaryYWrap(X) {
 function setVelBoundaryWrapY(vel) {
     setBoundary(vel[X_DIM], BOUNDARY_OPPOSE_X);
     setBoundaryYWrap(vel[Y_DIM]);
-    //setBoundary(vel[Y_DIM], BOUNDARY_OPPOSE_Y);
 }
-
-// Constant velocity inputs
-
