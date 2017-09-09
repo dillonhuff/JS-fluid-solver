@@ -260,6 +260,8 @@ function Grid(N, size, ui) {
             }
         }
 
+	return total_dens;
+
     }
 
     // Render a 2D representation of this Grid. Only works for 2D setup.
@@ -267,7 +269,8 @@ function Grid(N, size, ui) {
         ctx.clearRect(0, 0, this.size[X_DIM], this.size[Y_DIM]);
         ctx.save();
         // draw the densities
-	this.drawDensities(ctx, this.dens); //this.vel[X_DIM]);//this.dens);
+	var total_dens =
+	    this.drawDensities(ctx, this.dens); //this.vel[X_DIM]);//this.dens);
 
         var w = Math.floor(this.len_cells[X_DIM]);
         var h = Math.floor(this.len_cells[Y_DIM]);
