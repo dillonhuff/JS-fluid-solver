@@ -140,7 +140,7 @@ function setBoundaryYWrap(X) {
     for(var i=1; i<=lastX; i++) {
 	var tmp = elem(X, i, 0);
         setElem(X, i, 0, elem(X, i, lastY));
-        setElem(X, i, edgeY, elem(X, i, 0));
+        setElem(X, i, edgeY, elem(X, i, 1));
     }
     // update corners to be averages of their nearest edge neighbors
     setElem(X, 0, 0,         0.5*(elem(X, 1, 0) + elem(X, 0, 1)));
