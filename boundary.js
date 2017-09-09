@@ -1,3 +1,18 @@
+function updateCorners(X) {
+
+    var lastX = X.length - 2;
+    var lastY = X[0].length - 2;
+
+    var edgeX = lastX + 1;
+    var edgeY = lastY + 1;
+    
+    setElem(X, 0, 0,         0.5*(elem(X, 1, 0) + elem(X, 0, 1)));
+    setElem(X, 0, edgeY,     0.5*(elem(X, 1, edgeY) + elem(X, 0, lastY)));
+    setElem(X, edgeX, 0,     0.5*(elem(X, lastX, 0) + elem(X, edgeX, 1)));
+    setElem(X, edgeX, edgeY, 0.5*(elem(X, lastX, edgeY) + elem(X, edgeX, lastY)));
+
+}
+
 setBoundaryMirror = function(X) {
 
     var lastX = X.length - 2;
@@ -142,11 +157,13 @@ function setBoundaryYWrap(X) {
         setElem(X, i, 0, elem(X, i, lastY));
         setElem(X, i, edgeY, elem(X, i, 1));
     }
+
+    updateCorners(X);
     // update corners to be averages of their nearest edge neighbors
-    setElem(X, 0, 0,         0.5*(elem(X, 1, 0) + elem(X, 0, 1)));
-    setElem(X, 0, edgeY,     0.5*(elem(X, 1, edgeY) + elem(X, 0, lastY)));
-    setElem(X, edgeX, 0,     0.5*(elem(X, lastX, 0) + elem(X, edgeX, 1)));
-    setElem(X, edgeX, edgeY, 0.5*(elem(X, lastX, edgeY) + elem(X, edgeX, lastY)));
+    // setElem(X, 0, 0,         0.5*(elem(X, 1, 0) + elem(X, 0, 1)));
+    // setElem(X, 0, edgeY,     0.5*(elem(X, 1, edgeY) + elem(X, 0, lastY)));
+    // setElem(X, edgeX, 0,     0.5*(elem(X, lastX, 0) + elem(X, edgeX, 1)));
+    // setElem(X, edgeX, edgeY, 0.5*(elem(X, lastX, edgeY) + elem(X, edgeX, lastY)));
     
 }
 
