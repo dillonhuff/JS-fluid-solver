@@ -193,3 +193,32 @@ function setVelBoundaryWrapY(vel) {
     setBoundary(vel[X_DIM], BOUNDARY_OPPOSE_X);
     setBoundaryYWrap(vel[Y_DIM]);
 }
+
+function setBCRightWindTunnel(vel) {
+    setRightWindTunnel(vel[X_DIM]);
+    setBoundaryOpposeY(vel[Y_DIM]);
+}
+
+function setRightWindTunnel(X) {
+    var lastX = X.length - 2;
+    var lastY = X[0].length - 2;
+
+    // index 0 and "edge" are the border cells we're updating
+    var edgeX = lastX + 1;
+    var edgeY = lastY + 1;
+
+    // update left and right edges
+    for(var j = 1; j <= lastY; j++) {
+        setElem(X, 0, j, elem(X, 1, j));
+	setElem(X, edgeX, j, 0.3);
+    }
+
+    // update top and bottom edges
+    for(var i=1; i<=lastX; i++) {
+	var tmp = elem(X, i, 0);
+        setElem(X, i, 0, elem(X, i, lastY));
+        setElem(X, i, edgeY, elem(X, i, 1));
+    }
+
+    updateCorners(X);
+}

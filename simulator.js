@@ -156,7 +156,7 @@ function Simulator(ui) {
 	for(var dim = 0; dim < N_DIMS; dim++) {
 	    if (dim == X_DIM) {
 		this.diffuse(this.grid.vel[dim], this.grid.prev_vel[dim],
-                             this.ui.visc, setBoundaryOpposeX);
+                             this.ui.visc, setRightWindTunnel);
 	    } else if (dim == Y_DIM) {
 		this.diffuse(this.grid.vel[dim], this.grid.prev_vel[dim],
                              this.ui.visc, setBoundaryOpposeY);
@@ -167,14 +167,14 @@ function Simulator(ui) {
 	}
 
         this.project(this.grid.vel, this.grid.prev_vel,
-		     setBoundaryMirror, setVelBoundaryWrapY);
+		     setBoundaryMirror, setBCRightWindTunnel);
 
         this.grid.swapV();
 
         for(var dim = 0; dim < N_DIMS; dim++) {
 	    if (dim == X_DIM) {
 		this.advect(this.grid.vel[dim], this.grid.prev_vel[dim],
-                            this.grid.vel, setBoundaryOpposeX);
+                            this.grid.vel, setRightWindTunnel);
 	    } else if (dim == Y_DIM) {
 		this.advect(this.grid.vel[dim], this.grid.prev_vel[dim],
                             this.grid.vel, setBoundaryOpposeY);
@@ -185,7 +185,7 @@ function Simulator(ui) {
 	}
 
         this.project(this.grid.vel, this.grid.prev_vel,
-		     setBoundaryMirror, setVelBoundaryWrapY);
+		     setBoundaryMirror, setBCRightWindTunnel);
     }
 
     // Does one scalar field update.
