@@ -196,10 +196,10 @@ function Simulator(ui) {
 
 	this.grid.swapD();
         this.diffuse(this.grid.dens, this.grid.prev_dens,
-                     this.ui.diff, setBoundaryYWrap); //setBoundaryMirror); //BOUNDARY_MIRROR);
+                     this.ui.diff, setBoundaryYWrapXSink); //setBoundaryMirror); //BOUNDARY_MIRROR);
         this.grid.swapD();
         this.advect(this.grid.dens, this.grid.prev_dens,
-                    this.grid.vel, setBoundaryYWrap); //setBoundaryMirror); //BOUNDARY_MIRROR);
+                    this.grid.vel, setBoundaryYWrapXSink); //setBoundaryMirror); //BOUNDARY_MIRROR);
         
     }
     

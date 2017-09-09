@@ -135,10 +135,32 @@ function setVelBoundary(vel) {
     setBoundary(vel[Y_DIM], BOUNDARY_OPPOSE_Y);
 }
 
+
+function setBoundaryYWrapXSink(X) {
+    var lastX = X.length - 2;
+    var lastY = X[0].length - 2;
+
+    // index 0 and "edge" are the border cells we're updating
+    var edgeX = lastX + 1;
+    var edgeY = lastY + 1;
+    // update left and right edges
+    for(var j = 1; j <= lastY; j++) {
+        setElem(X, 0, j, elem(X, 1, j));
+        //setElem(X, edgeX, j, elem(X, lastX, j));
+	setElem(X, edgeX, j, 0);
+    }
+    // update top and bottom edges
+    for(var i=1; i<=lastX; i++) {
+	var tmp = elem(X, i, 0);
+        setElem(X, i, 0, elem(X, i, lastY));
+        setElem(X, i, edgeY, elem(X, i, 1));
+    }
+
+    updateCorners(X);
+
+}
+
 function setBoundaryYWrap(X) {
-    // index 1 and "last" are the endpoints of the active grid
-    // var lastX = this.grid.N[X_DIM];
-    // var lastY = this.grid.N[Y_DIM];
 
     var lastX = X.length - 2;
     var lastY = X[0].length - 2;
