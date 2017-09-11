@@ -26,7 +26,7 @@ function Simulator(ui) {
     // This would allow for more flexibility in the use of diffuse, project, and
     // advect
 
-    
+
     // Sets the values of vector cur to the "diffused" values.
     // That is, the values of cur "leak in" to and "leak out" of all
     // neighboring cells.
@@ -109,14 +109,8 @@ function Simulator(ui) {
             }
         }
 
-        // setBoundary(div, BOUNDARY_MIRROR);
-        // setBoundary(p, BOUNDARY_MIRROR);
-
 	pressureBC(div);
 	pressureBC(p);
-
-        // setBoundary(div, BOUNDARY_MIRROR);
-        // setBoundary(p, BOUNDARY_MIRROR);
 
 	// TODO - move to a separate function (shared w/ diffuse)
         for(var iter = 0; iter < this.ui.solver_iters; iter++) {
@@ -202,18 +196,22 @@ function Simulator(ui) {
 		     setBoundaryMirror, combBC); //setBCRightWindTunnel);
     }
 
+    this.dStep = function(BC) {
+	this.dStepBC(setBoundaryYWrapXSink);
+    }
+
     // Does one scalar field update.
-    this.dStep = function() {
+    this.dStepBC = function(bc) {
 
         addSource(this.timeStep, this.grid.dens, this.grid.prev_dens);
         addSource(this.timeStep, this.grid.dens, this.grid.src_dens);
 
 	this.grid.swapD();
         this.diffuse(this.grid.dens, this.grid.prev_dens,
-                     this.ui.diff, setBoundaryYWrapXSink); //setBoundaryMirror); //BOUNDARY_MIRROR);
+                     this.ui.diff, bc); //setBoundaryMirror); //BOUNDARY_MIRROR);
         this.grid.swapD();
         this.advect(this.grid.dens, this.grid.prev_dens,
-                    this.grid.vel, setBoundaryYWrapXSink); //setBoundaryMirror); //BOUNDARY_MIRROR);
+                    this.grid.vel, bc); //setBoundaryMirror); //BOUNDARY_MIRROR);
         
     }
     
