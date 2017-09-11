@@ -142,12 +142,16 @@ function Simulator(ui) {
 	//setVelBoundary(vel);
     }
 
-    // Does one velocity field update.
-
     this.vStep = function() {
-
 	var xBC = setRightWindTunnel;
 	var yBC = setBoundaryOpposeY;
+
+
+	this.vStepBC(xBC, yBC);
+    }
+
+    // Does one velocity field update.
+    this.vStepBC = function(xBC, yBC) {
 
 	var combBC = function(vel) {
 	    xBC(vel[X_DIM]);
