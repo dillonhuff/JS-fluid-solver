@@ -143,7 +143,17 @@ function Simulator(ui) {
     }
 
     // Does one velocity field update.
+
     this.vStep = function() {
+
+	var xBC = setRightWindTunnel;
+	var yBC = setBoundaryOpposeY;
+
+	var combBC = function(vel) {
+	    xBC(vel[X_DIM]);
+	    yBC(vel[Y_DIM]);
+	}
+
         for(var dim = 0; dim < N_DIMS; dim++) {
 
             addSource(this.timeStep, this.grid.vel[dim], this.grid.prev_vel[dim]);
@@ -156,10 +166,10 @@ function Simulator(ui) {
 	for(var dim = 0; dim < N_DIMS; dim++) {
 	    if (dim == X_DIM) {
 		this.diffuse(this.grid.vel[dim], this.grid.prev_vel[dim],
-                             this.ui.visc, setRightWindTunnel);
+                             this.ui.visc, xBC); //setRightWindTunnel);
 	    } else if (dim == Y_DIM) {
 		this.diffuse(this.grid.vel[dim], this.grid.prev_vel[dim],
-                             this.ui.visc, setBoundaryOpposeY);
+                             this.ui.visc, yBC); //setBoundaryOpposeY);
 		
 	    } else {
 		alert('BAD BC in vSTep');
@@ -167,17 +177,17 @@ function Simulator(ui) {
 	}
 
         this.project(this.grid.vel, this.grid.prev_vel,
-		     setBoundaryMirror, setBCRightWindTunnel);
+		     setBoundaryMirror, combBC); //setBCRightWindTunnel);
 
         this.grid.swapV();
 
         for(var dim = 0; dim < N_DIMS; dim++) {
 	    if (dim == X_DIM) {
 		this.advect(this.grid.vel[dim], this.grid.prev_vel[dim],
-                            this.grid.vel, setRightWindTunnel);
+                            this.grid.vel, xBC); //setRightWindTunnel);
 	    } else if (dim == Y_DIM) {
 		this.advect(this.grid.vel[dim], this.grid.prev_vel[dim],
-                            this.grid.vel, setBoundaryOpposeY);
+                            this.grid.vel, yBC); //setBoundaryOpposeY);
 
 	    } else {
 		alert('Bad BC in advect!');
@@ -185,7 +195,7 @@ function Simulator(ui) {
 	}
 
         this.project(this.grid.vel, this.grid.prev_vel,
-		     setBoundaryMirror, setBCRightWindTunnel);
+		     setBoundaryMirror, combBC); //setBCRightWindTunnel);
     }
 
     // Does one scalar field update.
