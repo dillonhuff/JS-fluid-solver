@@ -34,16 +34,18 @@ function Simulator(ui) {
     // bMode is the boundary mode for setBoundary().
     //this.diffuse = function(cur, prev, k, bMode) {
     this.diffuse = function(cur, prev, k, boundaryCondition) {
-        //var a = this.timeStep * k * this.grid.N[X_DIM] * this.grid.N[Y_DIM];
+
         var a = this.timeStep * k * Math.sqrt(this.ui.width * this.ui.height);
+	var div = 1 / (1 + 4*a);
+
         for(var iter=0; iter<this.ui.solver_iters; iter++) {
             for(var i = 1; i <= xDim(cur); i++) {
                 for(var j = 1; j <= yDim(cur); j++) {
 
-		    setElem(cur, i, j, (elem(prev, i, j)
+		    setElem(cur, i, j, div*(elem(prev, i, j)
 					+ a*(elem(cur, i-1, j) + elem(cur, i+1, j) +
                                              elem(cur, i, j-1) + elem(cur, i, j+1))
-				       ) / (1 + 4*a))
+					   )); // / (1 + 4*a))
                 }
             }
             //setBoundary(cur, bMode);
