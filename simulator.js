@@ -115,6 +115,9 @@ function Simulator(ui) {
 	pressureBC(p);
 
 	// TODO - move to a separate function (shared w/ diffuse)
+
+	// a = 1
+	// div = 1 / (1 + 4*a) = 1 / 5 ?? Should be a = 0 or divide by 4 right?
         for(var iter = 0; iter < this.ui.solver_iters; iter++) {
             for(var i = 1; i <= this.grid.N[X_DIM]; i++) {
                 for(var j = 1; j <= this.grid.N[Y_DIM]; j++) {
@@ -216,12 +219,16 @@ function Simulator(ui) {
                     this.grid.vel, bc); //setBoundaryMirror); //BOUNDARY_MIRROR);
         
     }
-    
+
+    this.stepBC = function(ctx) {
+    }
+
     // Take one step in the simulation.
     this.step = function(ctx) {
         //this.grid.clearCurrent();
         this.grid.clearPrev();
         this.grid.clearSources();
+
         var src_point = this.ui.getSource();
         if (src_point) {
             if (this.ui.getActionType() == ACT_DENSITY_SRC) {
@@ -241,7 +248,11 @@ function Simulator(ui) {
 		alert('No action in simulator!');
 	    }
         }
-        this.vStep();
+
+	var xBC = setRightWindTunnel;
+	var yBC = setBoundaryOpposeY;
+	
+        this.vStepBC(xBC, yBC);
         this.dStep();
         this.grid.render(ui.ctx, ui.show_grid, ui.show_vels);
     }
