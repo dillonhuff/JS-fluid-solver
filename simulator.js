@@ -198,7 +198,7 @@ function Simulator(ui) {
 	}
 
         this.project(this.grid.vel, this.grid.prev_vel,
-		     setBoundaryMirror, combBC); //setBCRightWindTunnel);
+		     setBoundaryMirror, combBC);
     }
 
     this.dStep = function(BC) {
@@ -213,14 +213,11 @@ function Simulator(ui) {
 
 	this.grid.swapD();
         this.diffuse(this.grid.dens, this.grid.prev_dens,
-                     this.ui.diff, bc); //setBoundaryMirror); //BOUNDARY_MIRROR);
+                     this.ui.diff, bc);
         this.grid.swapD();
         this.advect(this.grid.dens, this.grid.prev_dens,
-                    this.grid.vel, bc); //setBoundaryMirror); //BOUNDARY_MIRROR);
+                    this.grid.vel, bc);
         
-    }
-
-    this.stepBC = function(ctx) {
     }
 
     // Take one step in the simulation.
