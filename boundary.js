@@ -145,7 +145,7 @@ function setBoundaryYWrapXSink(X) {
     var edgeY = lastY + 1;
     // update left and right edges
     for(var j = 1; j <= lastY; j++) {
-        setElem(X, 0, j, elem(X, 1, j));
+        setElem(X, 0, j, 0); //elem(X, 1, j));
         //setElem(X, edgeX, j, elem(X, lastX, j));
 	setElem(X, edgeX, j, 0);
     }

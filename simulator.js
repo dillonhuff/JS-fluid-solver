@@ -250,8 +250,25 @@ function Simulator(ui) {
 	var yBC = setBoundaryOpposeY;
 	
         this.vStepBC(xBC, yBC);
-        this.dStep();
-        this.grid.render(ui.ctx, ui.show_grid, ui.show_vels);
+
+	var solidX = this.grid.solid_cells_x;
+	var solidY = this.grid.solid_cells_y;
+
+	var densBC = (function(X) {
+	    setBoundaryYWrapXSink(X);
+	    for (var i = 0; i < solidX.len; i++) {
+		X[solidX[i]][solidY[i]] = 0;
+	    }
+	});
+
+	this.dStepBC(densBC); //setBoundaryYWrapXSink);//densBC);
+
+	// for (var i = 0; i < this.grid.solid_cells_y.len; i++) {
+	//     X[this.grid.solid_cells_x[i]][this.grid.solid_cells_y[i]] = 0;
+	// }
+	
+
+	this.grid.render(ui.ctx, ui.show_grid, ui.show_vels);
     }
 
     // Adds gravity to the simulation. Pass negative g-force value to
