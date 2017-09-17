@@ -259,7 +259,14 @@ function Simulator(ui) {
 
 	this.dStepBC(setBoundaryYWrapXSink); //densBC);
 
+	//console.log('# of solid cells = ' + this.grid.solid_cells_y.length);
+
 	// for (var i = 0; i < this.grid.solid_cells_y.len; i++) {
+	//     var xi = this.grid.solid_cells_x[i];
+	//     var yi = this.grid.solid_cells_y[i];
+
+	//     console.log('Zeroing (' + xi + ', ' + yi + ')');
+
 	//     X[this.grid.solid_cells_x[i]][this.grid.solid_cells_y[i]] = 0;
 	// }
 
