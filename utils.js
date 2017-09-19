@@ -75,3 +75,12 @@ function addSource(timeStep, dest, source) {
 }
 
 
+function contains(e, arr) {
+    for (var i = 0; i < arr.length; i++) {
+	if (arr[i] == e) {
+	    return true;
+	}
+    }
+
+    return false;
+}

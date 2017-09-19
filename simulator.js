@@ -239,8 +239,13 @@ function Simulator(ui) {
                 this.grid.addVelSource(src_point.x, src_point.y, vX, vY);
             } else if (this.ui.getActionType() == ACT_ADD_MATERIAL_SRC) {
 		var idx = this.grid.getContainerCell(src_point.x, src_point.y);
-		this.grid.solid_cells_x.push(idx.i);
-		this.grid.solid_cells_y.push(idx.j);
+
+		if (!contains(idx.i, this.grid.solid_cells_x) &&
+		    !contains(idx.j, this.grid.solid_cells_y)) {
+		    this.grid.solid_cells_x.push(idx.i);
+		    this.grid.solid_cells_y.push(idx.j);
+		}
+
 	    } else {
 		alert('No action in simulator!');
 	    }
@@ -254,12 +259,9 @@ function Simulator(ui) {
 	var solidX = this.grid.solid_cells_x;
 	var solidY = this.grid.solid_cells_y;
 
-	var densBC = (function(X) {
-	});
-
 	this.dStepBC(setBoundaryYWrapXSink); //densBC);
 
-	//console.log('# of solid cells = ' + this.grid.solid_cells_y.length);
+	console.log('# of solid cells = ' + this.grid.solid_cells_y.length);
 
 	// for (var i = 0; i < this.grid.solid_cells_y.len; i++) {
 	//     var xi = this.grid.solid_cells_x[i];
