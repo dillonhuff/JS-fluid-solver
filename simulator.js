@@ -244,12 +244,6 @@ function Simulator(ui) {
 		if (!containsCell(idx.i, idx.j, this.grid)) {
 		    this.grid.solid_cells_x.push(idx.i);
 		    this.grid.solid_cells_y.push(idx.j);
-		} else {
-		    // console.log('Cell (' + idx.i + ', ' + idx.j + ') is contained!');
-		    // for (var i = 0; i < this.grid.solid_cells_x.length; i++) {
-		    // 	console.log('(' + this.grid.solid_cells_x[i] +
-		    // 		   ', ' + this.grid.solid_cells_y[i] + ')');
-		    // }
 		}
 
 	    } else {
@@ -265,7 +259,14 @@ function Simulator(ui) {
 	var solidX = this.grid.solid_cells_x;
 	var solidY = this.grid.solid_cells_y;
 
-	this.dStepBC(setBoundaryYWrapXSink); //densBC);
+	var densBC = function(X) {
+	    setBoundaryYWrapXSink(X);
+	    for (var i = 0; i < solidX.length; i++) {
+		X[solidX[i]][solidY[i]] = 0;
+	    }
+	};
+
+	this.dStepBC(densBC); //setBoundaryYWrapXSink); //densBC);
 
 	console.log('# of solid cells = ' + this.grid.solid_cells_y.length);
 
