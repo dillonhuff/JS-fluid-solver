@@ -240,10 +240,16 @@ function Simulator(ui) {
             } else if (this.ui.getActionType() == ACT_ADD_MATERIAL_SRC) {
 		var idx = this.grid.getContainerCell(src_point.x, src_point.y);
 
-		if (!contains(idx.i, this.grid.solid_cells_x) &&
-		    !contains(idx.j, this.grid.solid_cells_y)) {
+
+		if (!containsCell(idx.i, idx.j, this.grid)) {
 		    this.grid.solid_cells_x.push(idx.i);
 		    this.grid.solid_cells_y.push(idx.j);
+		} else {
+		    // console.log('Cell (' + idx.i + ', ' + idx.j + ') is contained!');
+		    // for (var i = 0; i < this.grid.solid_cells_x.length; i++) {
+		    // 	console.log('(' + this.grid.solid_cells_x[i] +
+		    // 		   ', ' + this.grid.solid_cells_y[i] + ')');
+		    // }
 		}
 
 	    } else {
@@ -262,15 +268,6 @@ function Simulator(ui) {
 	this.dStepBC(setBoundaryYWrapXSink); //densBC);
 
 	console.log('# of solid cells = ' + this.grid.solid_cells_y.length);
-
-	// for (var i = 0; i < this.grid.solid_cells_y.len; i++) {
-	//     var xi = this.grid.solid_cells_x[i];
-	//     var yi = this.grid.solid_cells_y[i];
-
-	//     console.log('Zeroing (' + xi + ', ' + yi + ')');
-
-	//     X[this.grid.solid_cells_x[i]][this.grid.solid_cells_y[i]] = 0;
-	// }
 
 	this.grid.render(ui.ctx, ui.show_grid, ui.show_vels);
     }

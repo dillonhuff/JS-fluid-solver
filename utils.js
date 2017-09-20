@@ -84,3 +84,14 @@ function contains(e, arr) {
 
     return false;
 }
+
+function containsCell(ix, jx, grid) {
+    for (var i = 0; i < grid.solid_cells_x.lenght; i++) {
+	if ((grid.solid_cells_x[i] == ix) &&
+	    (grid.solid_cells_y[i] == jx)) {
+	    return true;
+	}
+    }
+
+    return false;
+}
