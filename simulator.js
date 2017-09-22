@@ -241,9 +241,9 @@ function Simulator(ui) {
 	this.grid.swapD();
         this.diffuse(this.grid.dens, this.grid.prev_dens,
                      this.ui.diff, bc);
-        this.grid.swapD();
-        this.advect(this.grid.dens, this.grid.prev_dens,
-                    this.grid.vel, bc);
+        // this.grid.swapD();
+        // this.advect(this.grid.dens, this.grid.prev_dens,
+        //             this.grid.vel, bc);
         
     }
 
