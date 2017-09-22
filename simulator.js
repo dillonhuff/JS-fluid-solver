@@ -36,16 +36,43 @@ function Simulator(ui) {
     this.diffuse = function(cur, prev, k, boundaryCondition) {
 
         var a = this.timeStep * k * Math.sqrt(this.ui.width * this.ui.height);
-	var div = 1 / (1 + 4*a);
+
 
         for(var iter=0; iter<this.ui.solver_iters; iter++) {
             for(var i = 1; i <= xDim(cur); i++) {
                 for(var j = 1; j <= yDim(cur); j++) {
 
-		    setElem(cur, i, j, div*(elem(prev, i, j)
-					+ a*(elem(cur, i-1, j) + elem(cur, i+1, j) +
-                                             elem(cur, i, j-1) + elem(cur, i, j+1))
-					   )); // / (1 + 4*a))
+		    var nCells = 0;
+		    if (!containsCell(i - 1, j, this.grid)) {
+			nCells += 1;
+		    }
+
+		    if (!containsCell(i + 1, j, this.grid)) {
+			nCells += 1;
+		    }
+
+		    if (!containsCell(i, j - 1, this.grid)) {
+			nCells += 1;
+		    }
+
+		    if (!containsCell(i, j + 1, this.grid)) {
+			nCells += 1;
+		    }
+
+		    if (nCells != 4) {
+			//console.log('nCells = ' + nCells);
+		    }
+		    
+		    var div = 1 / (1 + nCells*a);		    
+
+		    if (!containsCell(i, j, this.grid)) {
+			setElem(cur, i, j, div*(elem(prev, i, j)
+						+ a*(elem(cur, i-1, j) + elem(cur, i+1, j) +
+						     elem(cur, i, j-1) + elem(cur, i, j+1))
+					       ));
+		    } else {
+			setElem(cur, i, j, 0);
+		    }
                 }
             }
             //setBoundary(cur, bMode);
@@ -220,6 +247,9 @@ function Simulator(ui) {
         
     }
 
+    this.updateBC = function(xBC, yBC, densBC) {
+    }
+
     // Take one step in the simulation.
     this.step = function(ctx) {
         //this.grid.clearCurrent();
@@ -251,10 +281,6 @@ function Simulator(ui) {
 	    }
         }
 
-	var xBC = setRightWindTunnel;
-	var yBC = setBoundaryOpposeY;
-	
-        this.vStepBC(xBC, yBC);
 
 	var solidX = this.grid.solid_cells_x;
 	var solidY = this.grid.solid_cells_y;
@@ -265,10 +291,13 @@ function Simulator(ui) {
 		X[solidX[i]][solidY[i]] = 0;
 	    }
 	};
+	
+	var xBC = setRightWindTunnel;
+	var yBC = setBoundaryOpposeY;
+	
+        this.vStepBC(xBC, yBC);
 
 	this.dStepBC(densBC); //setBoundaryYWrapXSink); //densBC);
-
-	console.log('# of solid cells = ' + this.grid.solid_cells_y.length);
 
 	this.grid.render(ui.ctx, ui.show_grid, ui.show_vels);
     }
