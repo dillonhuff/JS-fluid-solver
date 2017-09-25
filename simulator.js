@@ -241,9 +241,9 @@ function Simulator(ui) {
 	this.grid.swapD();
         this.diffuse(this.grid.dens, this.grid.prev_dens,
                      this.ui.diff, bc);
-        this.grid.swapD();
-        this.advect(this.grid.dens, this.grid.prev_dens,
-                    this.grid.vel, bc);
+        // this.grid.swapD();
+        // this.advect(this.grid.dens, this.grid.prev_dens,
+        //             this.grid.vel, bc);
         
     }
 
@@ -292,23 +292,24 @@ function Simulator(ui) {
 	    }
 	};
 
-	//var xBC = setRightWindTunnel;
+	var xBC = setRightWindTunnel;
 
-	var xBC = function(X) {
-	    setRightWindTunnel(X);
-	    for (var i = 0; i < solidX.length; i++) {
-		X[solidX[i]][solidY[i]] =
-		    -1*(X[solidX[i] - 1][solidY[i]]);
-	    }
-	}
-	//var yBC = setBoundaryOpposeY;
-	var yBC = function(X) {
-	    setBoundaryOpposeY(X);
-	    for (var i = 0; i < solidX.length; i++) {
-		X[solidX[i]][solidY[i]] =
-		    -1*(X[solidX[i]][solidY[i] - 1]);
-	    }
-	}
+	// var xBC = function(X) {
+	//     setRightWindTunnel(X);
+	//     for (var i = 0; i < solidX.length; i++) {
+	// 	X[solidX[i]][solidY[i]] =
+	// 	    -1*(X[solidX[i] - 1][solidY[i]]);
+	//     }
+	// }
+
+	var yBC = setBoundaryOpposeY;
+	// var yBC = function(X) {
+	//     setBoundaryOpposeY(X);
+	//     for (var i = 0; i < solidX.length; i++) {
+	// 	X[solidX[i]][solidY[i]] =
+	// 	    -1*(X[solidX[i]][solidY[i] - 1]);
+	//     }
+	// }
 	
         this.vStepBC(xBC, yBC);
 
