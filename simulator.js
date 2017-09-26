@@ -93,10 +93,12 @@ function Simulator(ui) {
                 // get resulting x coordinate cell after backtracking by vel
                 var start_x = i * lX;
                 var end_x = start_x - this.timeStep * elem3(vel, X_DIM, i, j);
-                if(end_x < 0)
+                if(end_x < 0) {
                     end_x = 0;
-                if(end_x > this.grid.N[X_DIM] * lX)
+		}
+                if(end_x > this.grid.N[X_DIM] * lX) {
                     end_x = this.grid.N[X_DIM] * lX;
+		}
                 var i0 = Math.floor(end_x / lX + 0.000001); // NOTE - rounding error
                 var i1 = i0 + 1;
                 // get resulting y coodinate cell after backtracking by vel
@@ -241,9 +243,9 @@ function Simulator(ui) {
 	this.grid.swapD();
         this.diffuse(this.grid.dens, this.grid.prev_dens,
                      this.ui.diff, bc);
-        // this.grid.swapD();
-        // this.advect(this.grid.dens, this.grid.prev_dens,
-        //             this.grid.vel, bc);
+        this.grid.swapD();
+        this.advect(this.grid.dens, this.grid.prev_dens,
+                    this.grid.vel, bc);
         
     }
 
@@ -286,7 +288,8 @@ function Simulator(ui) {
 	var solidY = this.grid.solid_cells_y;
 
 	var densBC = function(X) {
-	    setBoundaryYWrapXSink(X);
+	    //setBoundaryYWrapXSink(X);
+	    setBoundaryMirror(X);
 	    for (var i = 0; i < solidX.length; i++) {
 		X[solidX[i]][solidY[i]] = 0;
 	    }
